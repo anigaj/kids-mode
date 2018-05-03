@@ -10,10 +10,7 @@ Page
 {
     id: page
     property int userId
-    ListModel 
-    {
-        id: users
-    }
+    
     SilicaFlickable 
     {
         anchors.fill: parent
@@ -37,6 +34,7 @@ Page
                     //% "Pin"
                     text: qsTrId("pin")
             }               
+            
             TextSwitch 
             {
                 id: pinSwitch
@@ -49,7 +47,6 @@ Page
                         checked = false
                         pageStack.push(pinEntry)
                     }
-                    
                     else 
                     {
                         kmSettings.pinActive = false
@@ -57,6 +54,7 @@ Page
                     } 
                 }
             }
+            
             Button 
             {
                 width: parent.width - 2* Theme.paddingLarge
@@ -66,11 +64,13 @@ Page
                onClicked: pageStack.push(pinEntry)
                visible: kmSettings.pinActive 
             }
+            
             SectionHeader
             {
                 //% "Users"
-                text: qsTrId("user")
+                text: qsTrId("users")
             }
+            
             Button 
             {
                 width: parent.width - 2* Theme.paddingLarge
@@ -83,37 +83,26 @@ Page
                     pageStack.push(userSettingsPage)
                 } 
             }
-            Repeater 
-            {
-                id: usersList
-                model: users
-                delegate: UserItem {
-                    id: user
-                    width: content.width
-                    title: model.userName
-                    actionIconSource: "icon-m-clear"
-                    userId: model.userId
-                    color: model.iconColor
-                }
+        }
+        
+        SilicaListView 
+        {
+            id: usersList
+            model: users
+            anchors.top: content.bottom
+            anchors.topMargin: Theme.paddingMedium
+            spacing: Theme.paddingSmall
+            property real userHeight
+            height: users.count*userHeight
+            delegate: UserItem {
+                id: user
+                width: content.width
+                title: model.userName
+                userId: model.userId
+                color: model.iconColor
+                Component.onCompleted: usersList.userHeight = height
             }
         }
-    }
-    ConfigurationGroup
-    {
-        id: kmSettings
-        path: "/desktop/lipstick-jolla-home/kidsMode"
-        property bool pinActive: false
-        property string kmPin: "notset"
-        property int nUsers: 0
-        
-    }
-    ConfigurationGroup
-    {
-        id: userGroup
-        path: "/desktop/lipstick-jolla-home/kidsMode/0"
-        property string userName:''
-        property string iconColor: "#e60003"
-        property bool firstUse: true
     }
     
     Component 
@@ -130,6 +119,7 @@ Page
             }
         }
     }
+    
    Component 
     {
         id: userSettingsPage
@@ -152,22 +142,4 @@ Page
         return kmSettings.nUsers
     } 
             
-    function updateUsers()
-    {
-         users.clear()
-        var i = 0
-        var j = 0
-        
-        while( j < kmSettings.nUsers)
-        {
-            userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + i
-            userGroup.sync()
-            if(!userGroup.firstUse)
-            {
-               users.append({userId:i, userName:userGroup.userName , iconColor: userGroup.iconColor})
-                j = j + 1
-            }
-            i = i +1
-        }
-    }
 }

@@ -4,27 +4,11 @@ import Sailfish.Silica 1.0
 Item 
 {
     id: shortcutItem
-
     property alias title: title.text
     property alias color: icon.color
-    property string actionIconSource
     property int userId
-
-    function imageSource(path) 
-    {
-        var imagePath = path
-        if (path && path[0] != '/' && path.indexOf("://") < 0) {
-            imagePath = "image://theme/" + path
-        }
-        if (imagePath.length > 0) 
-        {
-            imagePath = imagePath + '?' + (shortcutItem.highlighted ? Theme.highlightColor : Theme.primaryColor)
-        }
-        return imagePath
-    }
-
-    height: Theme.itemSizeSmall
-
+    height: icon.height
+     
     Rectangle 
     {
         id: icon
@@ -39,8 +23,8 @@ Item
         {
             id: character
             anchors.centerIn: parent
-        text: title.text.charAt(0)
-        font.pixelSize: Theme.fontSizeExtraLarge
+            text: title.text.charAt(0)
+            font.pixelSize: Theme.fontSizeExtraLarge
             font.bold: true
             color: "black"
         } 
@@ -51,11 +35,12 @@ Item
         id: title
         anchors {
             left: icon.right
-            leftMargin: icon.visible ? Theme.paddingLarge : 0
+            leftMargin: Theme.paddingLarge 
             right: actionIcon.left
-            rightMargin: actionIcon.visible ? Theme.paddingLarge : 0
-            verticalCenter: parent.verticalCenter
+            rightMargin: Theme.paddingLarge
+            verticalCenter: parent.verticalCenter 
         }
+        width: parent.width - 2*icon.width
         color: shortcutItem.highlighted ? Theme.highlightColor : Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
         truncationMode: TruncationMode.Fade
@@ -77,19 +62,25 @@ Item
             rightMargin: Theme.horizontalPageMargin
             verticalCenter: parent.verticalCenter
         }
-        source: imageSource(shortcutItem.actionIconSource)
-        visible: source != ''
+        width: icon.width
+        source: "image://theme/icon-m-clear"
         MouseArea 
         {
-            anchors.fill: parent
-            onClicked:{
+            height: parent.height
+            width: parent.width
+            onClicked: remorse.execute(shortcutItem, qsTrId("removing-user"), function() {
                 userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
                 userGroup.clear()
                 userGroup.firstUse = true
                 kmSettings.nUsers =kmSettings.nUsers  -1 
-                page.updateUsers()
-            }
+                updateUsers()
+            })
         }
+    }
+    
+    RemorseItem
+    {
+        id: remorse
     }
 }
 

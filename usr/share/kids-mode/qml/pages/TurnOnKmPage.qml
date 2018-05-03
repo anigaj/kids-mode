@@ -8,22 +8,6 @@ Page
 {
     id: page
 
-    ListModel 
-    {
-        id: users
-    }
-    Timer 
-    {
-        id: closeAllTimer
-
-        interval: 5000
-        repeat: false
-        triggeredOnStart: false
-
-        onTriggered: {
-            python.call('helper.restoreAppMenu',[],function() { kmSettings.trigger = true })
-            }
-    }
     Timer
      {
         id: noUserTimer
@@ -32,13 +16,39 @@ Page
                 
         onTriggered:   pageStack.push(kmSettingsPage)
     }
+    
+    User
+    {
+        id: selectedUser
+        anchors.centerIn: parent
+        visible: kmSettings.kmOn
+        title: userName.value 
+        color:  iconColor.value
+        onVisibleChanged:{
+            if(visible) growIcon.start()
+            else {
+                growIcon.stop()
+                textSize = Theme.fontSizeSmall
+            }
+        }
+        textSize: Theme.fontSizeSmall
+        NumberAnimation
+        {
+            id: growIcon
+            target: selectedUser
+            property: "textSize"
+            to: Theme.fontSizeExtraLarge*2
+            duration: 5000
+        }
+    }
+    
     SilicaFlickable
     {
         anchors.fill: parent
         contentHeight: content.height
+        
         PullDownMenu
-        {
-            
+        {         
             MenuItem
             {
                 id: settings
@@ -50,6 +60,7 @@ Page
         
         Column
         {
+            visible: !kmSettings.kmOn
             id: content
             width: parent.width
             spacing: Theme.paddingMedium
@@ -59,6 +70,7 @@ Page
                 //% "Enter kids mode"
                 title: qsTrId("enter-kids-mode")
             }
+            
             Label
             {
                 id: noUsersText
@@ -77,6 +89,7 @@ Page
                 opacity: 1.0
                 
             }
+            
             Label 
             {
                 anchors 
@@ -107,6 +120,7 @@ Page
                         title: model.userName
                         userId: model.userId
                         color: model.iconColor
+                        textSize: Theme.fontSizeExtraLarge
                         MouseArea
                         {
                             anchors.fill: parent
@@ -137,174 +151,28 @@ Page
                     }                  
                 }
             }
-            Label
-            {
-                id: enterKmLabel
-                anchors 
-                {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.paddingLarge
-                }
-                font.pixelSize: Theme.fontSizeLarge
-                 //% "Entering kids mode"
-                 text:qsTrId("km-enter")
-                 visible: false
-                color: Theme.highlightColor
-            }
         }
     }
 
-    ConfigurationGroup
+    ConfigurationValue 
     {
-        id: kmSettings
-        path: "/desktop/lipstick-jolla-home/kidsMode"
-        property bool pinActive: false
-        property string kmPin: "notset"
-        property bool kmOn: false
-        property int nUsers: 0
-        property int currentUser: 0
-        property bool trigger: false
-    }
-    ConfigurationGroup
-    {
-        id: userGroup
-        path: "/desktop/lipstick-jolla-home/kidsMode/0"
-        property string userName:''
-        property string iconColor: "#e60003"
-        property bool firstUse: true
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false  
+        id: userName
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/userName"
+            defaultValue: ''
     }
     
-    ConfigurationGroup
+    ConfigurationValue 
     {
-        id: mainUserBackUp
-        path: "/desktop/lipstick-jolla-home/kidsMode/mainUser"
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false 
-        function backUpMainUser ()
-        {
-            events_screen_shortcuts_enabled = mainUser.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = mainUser.events_screen_actions_enabled
-            mainUserBuActions.value =  mainUserActions.value 
-            mainUserBuShortcuts.value =  mainUserShortcuts.value
-            mainUserBuWidgets.value =  mainUserWidgets.value
-        }
-        
+        id: iconColor
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/iconColor"
+            defaultValue: "red"
     }
     
-    ConfigurationGroup
-    {
-        id: mainUser
-        path: "/desktop/lipstick-jolla-home"
-        property bool events_screen_shortcuts_enabled: false
-property bool events_screen_actions_enabled: false  
-        function copyKmUser ()
-        {
-            events_screen_shortcuts_enabled = userGroup.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = userGroup.events_screen_actions_enabled
-            mainUserActions.value =  userGroupActions.value 
-            mainUserShortcuts.value =  userGroupShortcuts.value
-            mainUserWidgets.value =  userGroupWidgets.value
-        }
-        
-    }
-    //keep getting error trying to copy the arrays so have to use configuration values as a work around
-    ConfigurationValue
-    {
-        id: userGroupActions
-        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: userGroupShortcuts
-        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/events_screen_shortcuts"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: userGroupWidgets
-        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/events_screen_widgets"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserActions
-        key: "/desktop/lipstick-jolla-home/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserShortcuts
-        key: "/desktop/lipstick-jolla-home/events_screen_shortcuts"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserWidgets
-        key: "/desktop/lipstick-jolla-home/events_screen_widgets"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuActions
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuShortcuts
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_shortcuts"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuWidgets
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_widgets"
-        defaultValue: []
-    }
     Component 
     {
         id: kmSettingsPage
         MainSettingsPage { } 
     }
-    onStatusChanged:  if(status === PageStatus.Active){
-        if(kmSettings.nUsers == 0) noUserTimer.start()
-         updateUsers()
-         kmSettings.trigger = false
-    }
-    function enterKm(userId)
-    {
-        enterKmLabel.visible = true
-        mainUserBackUp.backUpMainUser()
-        userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
-        kmSettings.currentUser = userId
-        mainUser.copyKmUser() 
-        python.call('helper.backupMainUser',[],function  () {
-                kmSettings.kmOn = true
-                closeAllTimer.start()
-             }       
-        )
-    }
-    function updateUsers()
-    {
-        users.clear()
-        var i = 0
-        var j = 0
-        
-        while( j < kmSettings.nUsers)
-        {
-            userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + i
-            userGroup.sync()
-            if(!userGroup.firstUse)
-            {
-               users.append({userId:i, userName:userGroup.userName , iconColor: userGroup.iconColor})
-                j = j + 1
-            }
-            i = i +1
-        }
-    }
+    
+    onStatusChanged:  if(status === PageStatus.Active && kmSettings.nUsers == 0) noUserTimer.start()
 }

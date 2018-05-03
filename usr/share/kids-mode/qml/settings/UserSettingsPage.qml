@@ -13,14 +13,12 @@ Page
     
     SilicaFlickable 
     {
-
         anchors.fill: parent
         contentHeight: content.height
 
         Column 
         {
             id: content
-
             width: parent.width
             spacing: Theme.paddingMedium
 
@@ -77,8 +75,7 @@ Page
                     placeholderText: label
                     //% "Enter user name"
                     label:qsTrId("enter-user-name")
-                    text: userName.value 
-           
+                    text: userName.value            
                     EnterKey.onClicked: {
                         userName.value = text
                         page.focus = true
@@ -86,11 +83,13 @@ Page
                     onActiveFocusChanged: if (!activeFocus)userName.value = text
                 }
             }
+            
             SectionHeader
             {
                     //% "Launcher"
                     text: qsTrId("launcher")
             } 
+          
             Label 
             {
                 anchors {
@@ -115,11 +114,13 @@ Page
                     text: qsTrId("select-applications")
                     onClicked: pageStack.push(appSelector)
             }
+            
             SectionHeader 
             {
                  //% "Events view"
                 text: qsTrId("events-view")
             }
+            
             Label 
             {               
                 anchors {
@@ -135,6 +136,7 @@ Page
                 //% "Select the items that will be available in events view for  kids mode."
                 text: qsTrId("events-para")
             }
+            
             EventsviewSettings 
             {
                 id: evSettings
@@ -182,12 +184,14 @@ Page
         key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/userName"
             defaultValue: ''
     }
+    
     ConfigurationValue 
     {
         id: iconColor
         key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/iconColor"
             defaultValue: "red"
     }
+    
     Component 
     {
         id: appSelector

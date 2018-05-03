@@ -6,18 +6,31 @@ import org.nemomobile.configuration 1.0
 Page 
 {
     id: page
-    Timer 
+    User
     {
-        id: closeAllTimer
-
-        interval: 5000
-        repeat: false
-        triggeredOnStart: false
-
-        onTriggered: {
-           python.call('helper.restoreMainUser',[],function(){kmSettings.trigger= true})
+        id: selectedUser
+        anchors.centerIn: parent
+        visible: !kmSettings.kmOn
+        title: userName.value 
+        color:  iconColor.value
+        onVisibleChanged:{
+            if(visible) growIcon.start()
+            else {
+                growIcon.stop()
+                textSize = Theme.fontSizeExtraLarge*2
             }
+        }
+        textSize: Theme.fontSizeExtraLarge*2
+        NumberAnimation
+        {
+            id: growIcon
+            target: selectedUser
+            property: "textSize"
+            to: Theme.fontSizeSmall
+            duration: 5000
+        }
     }
+    
     SilicaFlickable
     {
         anchors.fill: parent
@@ -25,6 +38,7 @@ Page
 
         Column
         {
+            visible: kmSettings.kmOn
             id: content
             width: parent.width
             spacing: Theme.paddingMedium
@@ -34,6 +48,7 @@ Page
                 //% "Kids mode"
                 title: qsTrId("exit-kids-mode")
             }
+            
             Row 
             {
                 height: icon.height 
@@ -69,8 +84,8 @@ Page
                     {
                             
                             anchors { 
-                            margins: -Theme.paddingLarge 
-                            fill: parent 
+                                margins: -Theme.paddingLarge 
+                                fill: parent 
                             }
                             onClicked: pageStack.push(colorPicker)
                     } 
@@ -84,8 +99,7 @@ Page
                     label:qsTrId("change-user-name")
                     text: userName.value        
                     color:  Theme.primaryColor
-                    font.pixelSize: Theme.fontSizeExtraLarge 
-           
+                    font.pixelSize: Theme.fontSizeExtraLarge            
                     EnterKey.onClicked: {
                         userName.value = text
                         page.focus = true
@@ -93,17 +107,21 @@ Page
                     onActiveFocusChanged: if (!activeFocus)userName.value = text
                 }
             }
+            
             SectionHeader 
             {
                     //% "Exit kids modes"
                     text: qsTrId("exit-kids-modes")
             }
+            
             Button
              {
                  id: exitKm
                  visible: !kmSettings.pinActive                
                  //% "Exit kids mode"
                  text: qsTrId("exit-kids-mode")
+                width: parent.width - 2*Theme.paddingLarge
+                anchors.horizontalCenter: parent.horizontalCenter
                   onClicked: exitKM()
             }
             
@@ -118,7 +136,11 @@ Page
                 echoMode: TextInput.Password
                 validator: RegExpValidator { regExp: /^[0-9 ]{,4}$/ }
                 property bool pinEntered: text.length == 4           
-                onPinEnteredChanged:  if(pinEntry.pinEntered && pinEntry.text == kmSettings.kmPin) exitKM()
+                onPinEnteredChanged:  if(pinEntry.pinEntered && pinEntry.text == kmSettings.kmPin){
+                    EnterKey.enabled = false
+                    pinEntry.text = ""
+                    exitKM()
+                }
                 //since entering the correct pin doesn't require pressing enter then wrong pin must have been used if enter is pressed.
                 EnterKey.onClicked: {
                     pinError.visible = true
@@ -127,6 +149,7 @@ Page
                 onActiveFocusChanged: if (activeFocus)pinError.visible =false 
                 visible:  kmSettings.pinActive
             }
+            
             Label
             {
                 id: pinError
@@ -143,115 +166,20 @@ Page
                  visible: false
                 color: Theme.highlightColor
             }
-            Label
-            {
-                id: pinOk
-                anchors 
-                {
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.paddingLarge
-                }
-                font.pixelSize: Theme.fontSizeLarge
-                 //% "Exiting kids mode"
-                 text:qsTrId("km-exit")
-                 visible: false
-                color: Theme.highlightColor
-            }
         }
-    }
-     
-    ConfigurationGroup
-    {
-        id: mainUserBackUp
-        path: "/desktop/lipstick-jolla-home/kidsMode/mainUser"
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false 
     }
     
-    ConfigurationGroup
-    {
-        id: mainUser
-        path: "/desktop/lipstick-jolla-home"
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false  
-        function restoreMainUser ()
-        {
-             events_screen_shortcuts_enabled = mainUserBackUp.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = mainUserBackUp.events_screen_actions_enabled
-            mainUserActions.value =  mainUserBuActions.value 
-            mainUserShortcuts.value =  mainUserBuShortcuts.value
-            mainUserWidgets.value =  mainUserBuWidgets.value
-        }
-    }
-    //keep getting error trying to copy the arrays so have to use configuration values as a work around
-    ConfigurationValue
-    {
-        id: mainUserActions
-        key: "/desktop/lipstick-jolla-home/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserShortcuts
-        key: "/desktop/lipstick-jolla-home/events_screen_shortcuts"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserWidgets
-        key: "/desktop/lipstick-jolla-home/events_screen_widgets"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuActions
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuShortcuts
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_shortcuts"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
-        id: mainUserBuWidgets
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_widgets"
-        defaultValue: []
-    }
-    onStatusChanged:  if(status === PageStatus.Active){
-        kmSettings.trigger = false
-    }
     ConfigurationValue 
     {
         id: userName
         key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/userName"
             defaultValue: ''
     }
+    
     ConfigurationValue 
     {
         id: iconColor
         key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/iconColor"
             defaultValue: "red"
-    }
-    ConfigurationGroup
-    {
-        id: kmSettings
-        path: "/desktop/lipstick-jolla-home/kidsMode"
-        property bool pinActive: false
-        property string kmPin: "notset"
-        property bool kmOn: true
-        property int currentUser: 0
-        property bool trigger: false
-    }
-    function exitKM()
-    {
-        pinOk.visible = true
-        kmSettings.kmOn = false
-        mainUser.restoreMainUser()
-        closeAllTimer.start()
     }
 }

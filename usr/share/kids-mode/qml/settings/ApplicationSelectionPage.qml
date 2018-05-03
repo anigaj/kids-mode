@@ -8,6 +8,7 @@ Page
 {
     id: page
     property int userId
+    
     ApplicationsGridView 
     {
         id: gridView

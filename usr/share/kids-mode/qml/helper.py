@@ -62,7 +62,7 @@ def backupMainUser():
             appCopy = copy.deepcopy(app)
             root.append(appCopy)
         root.remove(menu)
-    ET.dump(root)
+
     tree.write('/home/nemo/.config/kids-mode/applications.menu')
 
 def restoreAppMenu():         

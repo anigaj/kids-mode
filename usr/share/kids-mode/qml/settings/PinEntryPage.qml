@@ -19,6 +19,7 @@ Page
     {
         anchors.fill: parent
         contentHeight: content.height
+        
         Column 
         {
             id: content
@@ -29,11 +30,13 @@ Page
                     //% "Set pin"
                     title: qsTrId("set-pin")
             }
+            
             SectionHeader 
             {
                 //% "current-pin"
                 text: qsTrId("current-pin")
             }                                  
+            
             TextField 
             {
                 id: currentPinEntry
@@ -83,6 +86,7 @@ Page
                 }
                 enabled: (page.currentPin == "notset" || !currentPinEntry.enabled) 
             }
+            
             TextField 
             {
                 id: verify
@@ -104,6 +108,7 @@ Page
                 onActiveFocusChanged: activeFocus ? pinError.visible =false :  pinError.visible =true 
                 enabled: false 
             }
+            
             Label
             {
                 id: pinError

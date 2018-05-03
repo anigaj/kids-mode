@@ -19,6 +19,7 @@ Item
     }
 
     onShortcutListChanged: eventsScreenShortcutsEnabled.value =  shortcutList.length > 0
+    
     Column 
     {
         id: content
@@ -43,6 +44,7 @@ Item
             anchors.horizontalCenter: parent.horizontalCenter
             //% "Select shortcuts"
             text: qsTrId("settings_events-la-select_shortcuts")
+            width: parent.width - 2*Theme.paddingLarge
             onClicked: pageStack.push(shortcutsSelector)
         }
 
@@ -61,6 +63,7 @@ Item
         Button 
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - 2*Theme.paddingLarge
             //% "Select actions"
             text: qsTrId("settings_events-la-select_actions")
             onClicked: pageStack.push(quickActionsSelector)
@@ -71,6 +74,7 @@ Item
             width: 1
             height: Theme.paddingLarge
         }
+        
         Label 
         {
             x: Theme.horizontalPageMargin
