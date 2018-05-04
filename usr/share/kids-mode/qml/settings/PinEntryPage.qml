@@ -33,8 +33,9 @@ Page
             
             SectionHeader 
             {
-                //% "current-pin"
+                //% "Current pin"
                 text: qsTrId("current-pin")
+                visible: page.currentPin != "notset"
             }                                  
             
             TextField 
@@ -42,7 +43,7 @@ Page
                 id: currentPinEntry
                 width: parent.width
                 placeholderText: label
-                //% "current pin"          
+                //% "Current pin"          
                 label:qsTrId("current-pin") 
                 inputMethodHints:Qt.ImhDigitsOnly
                 echoMode: TextInput.Password
@@ -63,13 +64,18 @@ Page
                 } 
                 visible:   page.currentPin != "notset"
             }
-                          
+            SectionHeader 
+            {
+                //% "New pin"
+                text: qsTrId("new-pin")
+                visible: page.currentPin != "notset"
+            }                                        
             TextField 
             {
                 id: newPin
                 width: parent.width
                 placeholderText: label
-                //% "new pin"
+                //% "New pin"
                 label:qsTrId("new-pin") 
                 inputMethodHints:Qt.ImhDigitsOnly
                 echoMode: TextInput.Password
@@ -92,7 +98,7 @@ Page
                 id: verify
                 width: parent.width
                 placeholderText: label
-                //% "verify pin"
+                //% "Verify pin"
                 label:qsTrId("verify-pin") 
                 inputMethodHints:Qt.ImhDigitsOnly
                 echoMode: TextInput.Password

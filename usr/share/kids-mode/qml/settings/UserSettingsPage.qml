@@ -24,8 +24,8 @@ Page
 
             PageHeader 
             {
-                //% "Kids mode"
-                title: qsTrId("kids-mode")
+                //% "User settings"
+                title: qsTrId("user-settings")
             }
             Row 
             {
@@ -110,7 +110,7 @@ Page
             {
                 width: parent.width - 2* Theme.paddingLarge
                anchors.horizontalCenter: parent.horizontalCenter 
-                    //% "select applications "
+                    //% "Select applications"
                     text: qsTrId("select-applications")
                     onClicked: pageStack.push(appSelector)
             }

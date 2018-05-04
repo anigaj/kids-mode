@@ -67,8 +67,8 @@ Page
             
             PageHeader
             {
-                //% "Enter kids mode"
-                title: qsTrId("enter-kids-mode")
+                //% "Kids mode"
+                title: qsTrId("kids-mode")
             }
             
             Label
@@ -104,7 +104,7 @@ Page
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeExtraSmall
                 //% "Click on user to enter kids mode or use pulley menu to change settings."
-                text: qsTrId("selections-para")
+                text: qsTrId("user-select-para")
             }
 
             Grid

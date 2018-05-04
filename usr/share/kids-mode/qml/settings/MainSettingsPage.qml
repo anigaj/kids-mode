@@ -59,7 +59,7 @@ Page
             {
                 width: parent.width - 2* Theme.paddingLarge
                anchors.horizontalCenter: parent.horizontalCenter 
-               //% "change pin"
+               //% "Change pin"
                text: qsTrId("change-pin")
                onClicked: pageStack.push(pinEntry)
                visible: kmSettings.pinActive 

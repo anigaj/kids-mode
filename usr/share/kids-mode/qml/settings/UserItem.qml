@@ -68,6 +68,7 @@ Item
         {
             height: parent.height
             width: parent.width
+            //% "Removing user"
             onClicked: remorse.execute(shortcutItem, qsTrId("removing-user"), function() {
                 userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
                 userGroup.clear()

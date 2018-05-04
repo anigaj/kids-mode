@@ -49,7 +49,6 @@ Column
         {
             id: userNameEntry
             width: parent.width - icon.width
-            //% "Click to change user name"
             text: userName.value        
             color:  Theme.primaryColor
             font.pixelSize: Theme.fontSizeMedium 

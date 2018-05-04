@@ -46,9 +46,24 @@ Page
             PageHeader
             {
                 //% "Kids mode"
-                title: qsTrId("exit-kids-mode")
+                title: qsTrId("kids-mode")
             }
-            
+            Label 
+            {
+                anchors 
+                {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.paddingLarge
+                }
+                opacity: 0.6
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //% "Click text to change user name or icon to change icon colour."
+                text: qsTrId("change-user-name")
+            }
             Row 
             {
                 height: icon.height 
@@ -95,8 +110,7 @@ Page
                     id: userNameEntry
                     width: parent.width - icon.width
                     placeholderText: label
-                    //% "Click to change user name"
-                    label:qsTrId("change-user-name")
+                    //label:qsTrId("change-user-name")
                     text: userName.value        
                     color:  Theme.primaryColor
                     font.pixelSize: Theme.fontSizeExtraLarge            
@@ -110,8 +124,8 @@ Page
             
             SectionHeader 
             {
-                    //% "Exit kids modes"
-                    text: qsTrId("exit-kids-modes")
+                    //% "Exit kids mode"
+                    text: qsTrId("exit-kids-mode")
             }
             
             Button
@@ -129,8 +143,8 @@ Page
             {
                 id: pinEntry
                 width: parent.width
-                //% "Enter pin to exit kids mode"
                 placeholderText: label
+                //% "Enter pin to exit kids mode"
                 label:qsTrId("exit-pin-kids-mode") 
                 inputMethodHints:Qt.ImhDigitsOnly
                 echoMode: TextInput.Password

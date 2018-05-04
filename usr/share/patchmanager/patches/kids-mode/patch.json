@@ -1,0 +1,8 @@
+{
+    "name": "Kids mode patch",
+    "description": "Patches launcher for kids mode",
+    "category": "homescreen",
+	"infos": {
+        "maintainer": "Anant Gajjar"
+	}
+}

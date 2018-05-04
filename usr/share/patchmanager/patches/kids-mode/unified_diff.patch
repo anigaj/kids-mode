@@ -1,0 +1,280 @@
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml
+--- original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-03-28 06:26:54.108045286 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-03-28 07:45:08.994860127 +0100
+@@ -175,7 +175,12 @@ SilicaFlickable {
+             active: false
+             eventsView: root.eventsView
+         }
+-
++    ConfigurationValue {
++        id: kmOn
++        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++        defaultValue: false
++        }
++        
+         ConfigurationValue {
+             id: eventsScreenWidgets
+ 
+@@ -231,7 +236,8 @@ SilicaFlickable {
+ 
+     Item {
+         id: notificationsArea
+-
++        
++        visible: !kmOn.value
+         width: root.notificationWidth
+         height: Math.max(systemUpdateList.contentHeight + notificationList.contentHeight + feedsList.height, root.height - y)
+ 
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml
+--- original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-04-09 10:15:50.244713634 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-04-09 10:20:05.519118591 +0100
+@@ -213,6 +213,11 @@ MouseArea {
+             defaultValue: true
+         }
+ 
++        ConfigurationValue {
++            id: kmOn
++            key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++            defaultValue: false
++        }
+         Loader {
+             id: shortcutLoader
+             active: shortcutsOverlay.active
+@@ -352,6 +357,7 @@ MouseArea {
+                                 rightMargin: Theme.paddingLarge
+                             }
+                             icon.source: "image://theme/icon-s-setting"
++                            visible: !kmOn.value
+ 
+                             onClicked: {
+                                 favoriteSettingsLoader.showEventsSettings()
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml
+--- original/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-04-10 06:27:32.177747256 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-04-10 06:34:41.682729240 +0100
+@@ -9,6 +9,7 @@ import QtQuick 2.0
+ import Sailfish.Silica 1.0
+ import com.jolla.settings 1.0
+ import org.nemomobile.lipstick 0.1
++import org.nemomobile.configuration 1.0
+ import "../main"
+ 
+ EditableGridDelegate {
+@@ -46,7 +47,12 @@ EditableGridDelegate {
+             value: item.down && item.enabled
+         }
+     }
+-
++    ConfigurationValue {
++        id: kmOn
++        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++        defaultValue: false
++    }
++    
+     Image {
+         id: removeButton
+         property bool pressed
+@@ -65,7 +71,7 @@ EditableGridDelegate {
+             horizontalCenterOffset: removeButtonOffset.width
+             verticalCenterOffset: removeButtonOffset.height
+         }
+-        enabled: Lipstick.compositor.eventsLayer.shortcutsHousekeeping
++        enabled: Lipstick.compositor.eventsLayer.shortcutsHousekeeping && !kmOn.value
+         opacity: enabled ? 1.0 : 0
+         Behavior on opacity { FadeAnimation { } }
+     }
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml
+--- original/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-04-10 06:27:32.137747830 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-04-10 06:36:54.820457528 +0100
+@@ -10,6 +10,7 @@ import Sailfish.Silica 1.0
+ import org.nemomobile.lipstick 0.1
+ import com.jolla.settings 1.0
+ import com.jolla.settings.system 1.0
++import org.nemomobile.configuration 1.0
+ import "../main"
+ 
+ Loader {
+@@ -25,7 +26,12 @@ Loader {
+ 
+     asynchronous: true
+     visible: status === Loader.Ready
+-
++    ConfigurationValue {
++        id: kmOn
++        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++        defaultValue: false
++    }
++    
+     Rectangle {
+         anchors {
+             fill: parent
+@@ -148,7 +154,7 @@ Loader {
+                             horizontalCenter: parent.right
+                             horizontalCenterOffset: Theme.iconSizeMedium/2-iconOffset
+                         }
+-                        enabled: wrapper.editMode
++                        enabled: wrapper.editMode && !kmOn.value
+                         opacity: enabled ? 1.0 : 0
+                         icon.source: "image://theme/icon-m-clear"
+                         width: icon.width
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml patch/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml
+--- original/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-03-13 09:21:55.310802724 +0000
++++ patch/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-04-22 14:52:26.803260671 +0100
+@@ -13,10 +13,15 @@ import Sailfish.Silica.private 1.0
+ import Sailfish.Policy 1.0
+ import Sailfish.Lipstick 1.0
+ import "../main"
++import org.nemomobile.configuration 1.0
+ 
+ SilicaGridView {
+     id: gridview
+-
++            ConfigurationGroup {
++                id: kidsModeSettings
++                path: "/desktop/lipstick-jolla-home/kidsMode"
++                property bool kmOn: false
++    }
+     // The multipliers below for Large screens are magic. They look good on Jolla tablet.
+     property real minimumCellWidth: Screen.sizeCategory >= Screen.Large ? Theme.itemSizeExtraLarge * 1.6 : Theme.itemSizeExtraLarge
+     // phone reference row height: 960 / 6
+@@ -225,7 +230,7 @@ SilicaGridView {
+         }
+ 
+         onPressAndHold: {
+-            if (Lipstick.compositor.launcherLayer.active) {
++            if (Lipstick.compositor.launcherLayer.active  && !kmOn.value) {
+                 setEditMode(true)
+             }
+         }
+@@ -330,7 +335,7 @@ SilicaGridView {
+                 anchors.horizontalCenter: parent.horizontalCenter
+                 enabled: launcherEditMode && policy.value
+                 opacity: enabled ? 1.0 : 0.0
+-                visible: launcherEditMode && !isFolder && AppControl.isUninstallable(object.filePath) && !object.isUpdating
++                visible: launcherEditMode && !isFolder && AppControl.isUninstallable(object.filePath) && !object.isUpdating && !kidsModeSettings.kmOn 
+                 onClicked: launcher.removeApplication(object.filePath, object.title)
+             }
+         }
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml patch/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml
+--- original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-03-13 09:23:06.737044060 +0000
++++ patch/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-05-02 21:50:56.703312756 +0100
+@@ -13,10 +13,35 @@ import Sailfish.Policy 1.0
+ import Sailfish.Lipstick 1.0
+ import org.nemomobile.dbus 2.0
+ import com.jolla.lipstick 0.1
++import org.nemomobile.configuration 1.0
+ 
+ SilicaListView {
+     id: launcherPager
+-
++    ConfigurationValue {
++        id: kmOn
++        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++        defaultValue: false
++    }
++        
++    ConfigurationValue {
++        id: lockScreenShortcuts
++
++        key: "/desktop/lipstick-jolla-home/kidsMode/"+currentUser.value+"/appsList"
++        defaultValue: []
++    }
++    ConfigurationValue {
++        id: currentUser
++
++        key: "/desktop/lipstick-jolla-home/kidsMode/currentUser"
++        defaultValue: 0
++    }
++            
++    ConfigurationGroup {
++        id: kmTrigger
++path: "/desktop/lipstick-jolla-home/kidsMode"
++        property bool triggerLoad: false
++        onValueChanged:if(key == "triggerLoad" && triggerLoad) lFolder.load() 
++    }
+     property bool launcherActive: Lipstick.compositor.launcherLayer.active
+     onLauncherActiveChanged: if (!launcherActive) { resetPosition(400) }
+ 
+@@ -112,7 +137,7 @@ SilicaListView {
+         }
+ 
+         onPressAndHold: {
+-            if (Lipstick.compositor.launcherLayer.active &&
++            if (Lipstick.compositor.launcherLayer.active && !kmOn.value &&
+                 Math.abs(mouse.x - pressX) < Theme.startDragDistance &&
+                 Math.abs(mouse.y - pressY) < Theme.startDragDistance) {
+                 launcher.setEditMode(true)
+@@ -131,11 +156,14 @@ SilicaListView {
+             gridManager.onStopScrolling: launcherPager.stopScrolling()
+ 
+             model: LauncherFolderModel {
++                id: lFolder
+                 iconDirectories: Theme.launcherIconDirectories
+-                blacklistedApplications: {
++                blacklistedApplications:kmOn.value? getBlackList(lockScreenShortcuts.value):getBlackList([ ])
++
++                function getBlackList(appList) {
+                     // Currently desktop-file path is good app grid item
+                     // identifier. However, this is a subject to change in future.
+-                    var blacklist = []
++                    var blacklist = appList 
+                     var path = "/usr/share/applications"
+ 
+                     if (!AccessPolicy.cameraEnabled) {
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml patch/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml
+--- original/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-04-22 08:28:01.160162830 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-04-22 10:56:54.163754153 +0100
+@@ -12,6 +12,7 @@ import com.jolla.lipstick 0.1
+ import org.nemomobile.lipstick 0.1
+ import org.nemomobile.thumbnailer 1.0
+ import org.nemomobile.devicelock 1.0
++import org.nemomobile.configuration 1.0
+ import "../systemwindow"
+ 
+ SystemWindow {
+@@ -63,6 +64,11 @@ SystemWindow {
+         property: "iconUrl"
+         value: notificationWindow.iconUrl
+     }
++    ConfigurationValue {
++        id: kmOn
++        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
++        defaultValue: false
++    }
+ 
+     function firstLine(str) {
+         var i = str.indexOf("\n")
+@@ -137,7 +143,7 @@ SystemWindow {
+         }
+ 
+         onClicked: {
+-            if (notification) {
++            if (notification && !kmOn.value) {
+                 notificationWindow._invoked = true
+                 notification.actionInvoked("default")
+ 
+diff -rupN original/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml patch/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml
+--- original/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-04-21 19:02:44.831496953 +0100
++++ patch/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-05-02 22:29:23.489999935 +0100
+@@ -12,6 +12,7 @@ import com.jolla.lipstick 0.1
+ import Sailfish.Silica 1.0
+ import Sailfish.Silica.private 1.0
+ import Sailfish.Lipstick 1.0
++import org.nemomobile.configuration 1.0
+ import "../compositor"
+ import "../main"
+ 
+@@ -177,7 +178,13 @@ SilicaFlickable {
+             repeater.itemAt(lastIndex).close()
+         }
+     }
+-
++ConfigurationGroup {
++        id: kmTrigger
++path: "/desktop/lipstick-jolla-home/kidsMode"
++        property bool triggerClose: false
++        onValueChanged: if(key == "triggerClose" && triggerClose) switcherRoot.closeAll() 
++    }
++    
+     function closeAll() {
+         closeAllTimer.stop()
+         closeAllTimer.lastIndex = repeater.count

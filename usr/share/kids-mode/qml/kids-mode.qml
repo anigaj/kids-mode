@@ -218,6 +218,7 @@ ApplicationWindow
         mainUser.copyKmUser() 
         python.call('helper.backupMainUser',[],function  () {
                 kmSettings.kmOn = true
+                //% "Entering kids mode"
                 kmRemorse.execute(qsTrId("enter-km"))
              }       
         )
@@ -227,6 +228,7 @@ ApplicationWindow
     {
         kmSettings.kmOn = false
         mainUser.restoreMainUser()
+        //% "Exiting kids mode"
         kmRemorse.execute(qsTrId("exit-km"))
     }
     
