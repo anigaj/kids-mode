@@ -1,7 +1,7 @@
 Name:          kids-mode
 Version:       0.1
 Release:       1
-Summary:   Application thats allows only selected applications to be made available to a user.
+Summary:   Allows only selected applications to be made available to a user in launcher.
 Group:         System/Patches
 Vendor:        Anant Gajjar
 Distribution:  SailfishOS
@@ -17,15 +17,25 @@ BuildArch: noarch
 %description
 This is a patch and application that creates a kids mode. The patch modifies the launcher, eventsview, notifications and switcher code to allows the application to work.
  
-In the application multiple users can be created and which applications and events view settings are available to each user can be configured. When kids mode is entered all existing applications visible in switcher are closed. For a selected user only the configured applications can be seen in launcher and launched. In events view notifications are hidden and only the configured switches and actions are available in the pull down menu.
+When kids mode is activated for a user  only the configured applications can be seen in launcher and launched. Long press is disabled in launcher. In events view notifications are hidden and only the configured switches and actions are available in the pull down menu. Notification pop-upps are shown but can't be clicked.
 
 When the user exits kids modes then the normal user settings are restored. A pin can be set to exit kids mode. 
 
+Features:
+- Multiple users can be created, each with own configuration for launcher and events view shortcuts.
+- Can be activated and deactivated from the cover.
+- Pin can be set to exit kids mode.
+
 Notes:
+Newly installed applications need to be unselected in settings otherwise they will show in kids mode.
 The pin is stored as plain text in dconf and so not secure.
 This may conflict with other  patches of launcher, switcher, notifications or eventsview.
 If the launcher folders aren't restored try a home screen restart. If that doesn't work then copy files in /home/nemo/.config/kids-mode/masterBackUp to  /home/nemo/.config/lipstick and restart home screen.
 
+To-dos:
+Don't show newly installed applications in kids mode as default behavioir. 
+Look into whether running applications can be hidden instead of closed.
+User changeable kids-mode ambiences.
 %files
 /usr/share/patchmanager/patches/*
 /usr/share/applications/*
