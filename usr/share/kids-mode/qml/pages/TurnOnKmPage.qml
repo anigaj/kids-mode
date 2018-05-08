@@ -174,5 +174,5 @@ Page
         MainSettingsPage { } 
     }
     
-    onStatusChanged:  if(status === PageStatus.Active && kmSettings.nUsers == 0) noUserTimer.start()
+    onStatusChanged:  if(status === PageStatus.Active && kmSettings.nUsers == 0) python.call('helper.backupInitial',[],function() { noUserTimer.start()})
 }

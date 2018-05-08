@@ -170,7 +170,9 @@ ApplicationWindow
         id: loadTimer
         repeat: false
         interval: 2000
-                
+        property int userId: 0
+        property bool turnOnKm: false
+        property bool turnOffKm: false
         onTriggered:   {
             if(kmSettings.kmOn) python.call('helper.restoreAppMenu',[],function() { 
                 kmSettings.triggerLoad = true
@@ -180,6 +182,14 @@ ApplicationWindow
                 kmSettings.triggerLoad = true
                 kmSettings.triggerLoad = false     
                 })
+            if(turnOnKm){ 
+                turnOnKm = false                
+                enterKm(userId)
+            }
+            if(turnOffKm){
+                turnOffKm = false                
+                exitKm()
+            }
         } 
     }
     RemorsePopup 
@@ -211,25 +221,35 @@ ApplicationWindow
         
      function enterKm(userId)
     {
-        
-        mainUserBackUp.backUpMainUser()
-        userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
-        kmSettings.currentUser = userId
-        mainUser.copyKmUser() 
-        python.call('helper.backupMainUser',[],function  () {
-                kmSettings.kmOn = true
-                //% "Entering kids mode"
-                kmRemorse.execute(qsTrId("enter-km"))
-             }       
-        )
+        if(loadTimer.running ) {
+            loadTimer.turnOnKm=true
+            loadTimer.userId=userId
+        }
+        else {            
+            mainUserBackUp.backUpMainUser()
+            userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
+            kmSettings.currentUser = userId
+            mainUser.copyKmUser() 
+            python.call('helper.backupMainUser',[],function  () {
+                    kmSettings.kmOn = true
+                    //% "Entering kids mode"
+                    kmRemorse.execute(qsTrId("enter-km"))
+                 }       
+            )
+        }
     }
     
     function exitKM()
     {
-        kmSettings.kmOn = false
-        mainUser.restoreMainUser()
-        //% "Exiting kids mode"
-        kmRemorse.execute(qsTrId("exit-km"))
+        if(loadTimer.running ) {
+            loadTimer.turnOffKm=true
+        }
+        else {
+            kmSettings.kmOn = false
+            mainUser.restoreMainUser()
+            //% "Exiting kids mode"
+            kmRemorse.execute(qsTrId("exit-km"))
+        }
     }
     
     function updateUsers()

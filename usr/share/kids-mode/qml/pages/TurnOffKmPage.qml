@@ -152,7 +152,7 @@ Page
                 property bool pinEntered: text.length == 4           
                 onPinEnteredChanged:  if(pinEntry.pinEntered && pinEntry.text == kmSettings.kmPin){
                     EnterKey.enabled = false
-                    pinEntry.text = ""
+                    page.focus = true
                     exitKM()
                 }
                 //since entering the correct pin doesn't require pressing enter then wrong pin must have been used if enter is pressed.

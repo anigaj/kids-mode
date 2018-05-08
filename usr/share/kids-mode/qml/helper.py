@@ -39,6 +39,17 @@ import pyotherside
 import os, json, shutil, glob, copy
 import xml.etree.ElementTree as ET
 
+#Keep a backup that  is created at start up or when all users have been removed. This is in case things go wrong
+def backupInitial():       
+#copy backed up files
+    if not os.path.exists('/home/nemo/.config/kids-mode'):
+        os.makedirs('/home/nemo/.config/kids-mode/')
+    if not os.path.exists('/home/nemo/.config/kids-mode/masterBackUp'):
+        os.makedirs('/home/nemo/.config/kids-mode/masterBackUp')
+
+    filelist = glob.glob('/home/nemo/.config/lipstick/*')     
+    for filename in filelist: 
+        shutil.copy(filename,'/home/nemo/.config/kids-mode/masterBackUp/')
 
 #Backup folders that get destroyed in kids mode
 def backupMainUser():       

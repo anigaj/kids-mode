@@ -23,7 +23,8 @@ When the user exits kids modes then the normal user settings are restored. A pin
 
 Notes:
 The pin is stored as plain text in dconf and so not secure.
-This may conflict with other  patches of launcher, switcher, notifications or eventsview. 
+This may conflict with other  patches of launcher, switcher, notifications or eventsview.
+If the launcher folders aren't restored try a home screen restart. If that doesn't work then copy files in /home/nemo/.config/kids-mode/masterBackUp to  /home/nemo/.config/lipstick and restart home screen.
 
 %files
 /usr/share/patchmanager/patches/*
@@ -43,6 +44,8 @@ if [ $1 = 0 ]; then
 
 rm -rf /usr/share/patchmanager/patches/kids-mode || true
 su -l nemo -c  "dconf reset -f /desktop/lipstick-jolla-home/kidsMode/" || true
+rm -rf /home/nemo/.config/kids-mode || true 
+
 else
 if [ $1 = 1 ]; then
     
