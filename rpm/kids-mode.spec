@@ -1,6 +1,6 @@
 Name:          kids-mode
 Version:       0.1
-Release:       1
+Release:       2
 Summary:   Allows only selected applications to be made available to a user in launcher.
 Group:         System/Patches
 Vendor:        Anant Gajjar
@@ -43,10 +43,36 @@ User changeable kids-mode ambiences.
 /usr/share/kids-mode/*
 
 %post
+cd /usr/share/kids-mode/translations
+
+currentlang1=$(grep LANG /var/lib/environment/nemo/locale.conf | cut -d= -f2 | cut -d. -f1)
+
+currentlang2=$(grep LANG /var/lib/environment/nemo/locale.conf | cut -d= -f2 | cut -d_ -f1)
+
+file1="kids-mode-${currentlang1}.qm"
+file2="kids-mode-${currentlang2}.qm"
+
+echo $file1
+echo $file2
+
+if [ ! -f $file1 ]  && [ ! -f $file2 ] 
+then ln -s kids-mode.qm $file1
+else echo "file exists" 
+fi
+ 
+
 %preun
  
 if [ -f /usr/sbin/patchmanager ]; then
 /usr/sbin/patchmanager -u kids-mode || true
+fi
+cd /usr/share/kids-mode/translations 
+
+currentlang1=$(grep LANG /var/lib/environment/nemo/locale.conf | cut -d= -f2 | cut -d. -f1)
+
+file1="kids-mode-${currentlang1}.qm"
+if [ -L $file1 ]
+then rm -f  $file1
 fi
 
 %postun
@@ -58,13 +84,15 @@ rm -rf /home/nemo/.config/kids-mode || true
 
 else
 if [ $1 = 1 ]; then
-    
+ 
 echo "It's just upgrade"
 fi
 fi
 
 %changelog
 *Mon Mar 14 2015 Builder <builder@...>
-
-0.1
+0.1-2
+- bug fix: now shows english text if translation is not available instead of the translation id.
+- Added translations for Dutch, Dutch(Belgium), French, Italian, Polish, Spanish and Swedish. 
+0.1-1
 - First build
