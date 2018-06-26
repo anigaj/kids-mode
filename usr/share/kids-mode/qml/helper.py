@@ -81,14 +81,14 @@ def restoreAppMenu():
     os.remove('/home/nemo/.config/lipstick/applications.menu')   
     shutil.copy('/home/nemo/.config/kids-mode/applications.menu','/home/nemo/.config/lipstick/')
 
-def restoreMainUser():
+def restoreMainUser(backupFolder):
 # first remove files in km
     filelist = glob.glob('/home/nemo/.config/lipstick/*') 
     for filename in filelist:                                                            
         os.remove(filename)
 
 #copy backed up files
-    filelist = glob.glob('/home/nemo/.config/kids-mode/launcherBackUp/*')     
+    filelist = glob.glob('/home/nemo/.config/kids-mode/'+backupFolder+'/*')     
     for filename in filelist:                                                                 
         shutil.copy(filename,'/home/nemo/.config/lipstick/')
  

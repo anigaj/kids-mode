@@ -152,14 +152,19 @@ Page
     {
         id: applicationModel
 
-        function getAppList ()
+        function saveAppList ()
         {
             var appList = []
+            var appNames = []
             for (var i = 0; i < itemCount; ++i) {
                 var item = get(i)
-                if(item.filePath != "/usr/share/applications/kids-mode.desktop") appList.push(item.filePath)
+                if(item.filePath != "/usr/share/applications/kids-mode.desktop"){
+                     appList.push(item.filePath)
+                    appNames.push(item.title)
+                }
             }
-            return appList
+            lockScreenShortcuts.value = appList
+            appTitles.value = appNames
         }
     }
         
@@ -168,6 +173,14 @@ Page
         id: lockScreenShortcuts
 
         key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/appsList"
+        defaultValue: []
+    }
+    
+   ConfigurationValue 
+    {
+        id: appTitles
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/appTitles"
         defaultValue: []
     }
    
@@ -203,7 +216,7 @@ Page
     }
     
     Component.onCompleted: if(firstUse.value) {
-         lockScreenShortcuts.value =  applicationModel.getAppList()
+         applicationModel.saveAppList()
         firstUse.value = false
         iconColor.value = "red"
     }

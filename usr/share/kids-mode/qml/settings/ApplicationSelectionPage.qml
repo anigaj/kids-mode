@@ -39,18 +39,23 @@ Page
             function updateList()
             {
                 var appList = lockScreenShortcuts.value
+                var appNames = appTitles.value 
                 if(!isSelected)
                 {
                     var i = appList.indexOf(filePath)
                     appList.splice(i,1)
+                    i = appNames.indexOf(name)
+                    appNames.splice(i,1)
                     opacity=1.0
                 }
                 else 
                 {
                     appList.push(filePath)
+                    appNames.push(name)
                     opacity = 0.2
                 }
                 lockScreenShortcuts.value = appList
+                appTitles.value = appNames
             } 
         }
     } 
@@ -67,6 +72,13 @@ Page
         id: lockScreenShortcuts
 
         key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/appsList"
+        defaultValue: []
+    }
+    ConfigurationValue 
+    {
+        id: appTitles
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/appTitles"
         defaultValue: []
     }
 }

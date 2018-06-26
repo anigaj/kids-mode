@@ -1,6 +1,6 @@
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml
---- original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-03-28 06:26:54.108045286 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-03-28 07:45:08.994860127 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-06-21 06:26:58.475767207 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.qml	2018-06-21 06:27:34.655769389 +0100
 @@ -175,7 +175,12 @@ SilicaFlickable {
              active: false
              eventsView: root.eventsView
@@ -25,9 +25,9 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsViewList.
          width: root.notificationWidth
          height: Math.max(systemUpdateList.contentHeight + notificationList.contentHeight + feedsList.height, root.height - y)
  
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml
---- original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-04-09 10:15:50.244713634 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-04-09 10:20:05.519118591 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-06-21 06:26:58.435767204 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml	2018-06-21 06:27:34.615769387 +0100
 @@ -213,6 +213,11 @@ MouseArea {
              defaultValue: true
          }
@@ -48,9 +48,9 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/EventsView.qml 
  
                              onClicked: {
                                  favoriteSettingsLoader.showEventsSettings()
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml
---- original/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-04-10 06:27:32.177747256 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-04-10 06:34:41.682729240 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-06-21 06:26:58.505767208 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSettingsDelegate.qml	2018-06-21 06:27:34.705769392 +0100
 @@ -9,6 +9,7 @@ import QtQuick 2.0
  import Sailfish.Silica 1.0
  import com.jolla.settings 1.0
@@ -82,9 +82,9 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/FavoriteSetting
          opacity: enabled ? 1.0 : 0
          Behavior on opacity { FadeAnimation { } }
      }
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml patch/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml
---- original/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-04-10 06:27:32.137747830 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-04-10 06:36:54.820457528 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-06-21 06:26:58.545767211 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoader.qml	2018-06-21 06:27:34.745769394 +0100
 @@ -10,6 +10,7 @@ import Sailfish.Silica 1.0
  import org.nemomobile.lipstick 0.1
  import com.jolla.settings 1.0
@@ -116,57 +116,49 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/eventsview/QuickActionsLoa
                          opacity: enabled ? 1.0 : 0
                          icon.source: "image://theme/icon-m-clear"
                          width: icon.width
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml patch/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml
---- original/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-03-13 09:21:55.310802724 +0000
-+++ patch/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-06-22 10:31:07.094756429 +0100
-@@ -13,10 +13,15 @@ import Sailfish.Silica.private 1.0
- import Sailfish.Policy 1.0
- import Sailfish.Lipstick 1.0
- import "../main"
-+import org.nemomobile.configuration 1.0
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml patchLc/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-06-21 06:28:08.815771450 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/launcher/LauncherGrid.qml	2018-06-21 20:16:22.346113755 +0100
+@@ -31,6 +31,11 @@ SilicaGridView {
+         property real zoomValue: 1.0
+     }
  
- SilicaGridView {
-     id: gridview
--
-+            ConfigurationGroup {
++    ConfigurationGroup {
 +                id: kidsModeSettings
 +                path: "/desktop/lipstick-jolla-home/kidsMode"
 +                property bool kmOn: false
 +    }
-     // The multipliers below for Large screens are magic. They look good on Jolla tablet.
-     property real minimumCellWidth: Screen.sizeCategory >= Screen.Large ? Theme.itemSizeExtraLarge * 1.6 : Theme.itemSizeExtraLarge
-     // phone reference row height: 960 / 6
-@@ -225,7 +230,7 @@ SilicaGridView {
+     property bool isPortrait: launcherPager.height > launcherPager.width
+ 
+     add: Transition {
+@@ -264,7 +269,7 @@ SilicaGridView {
          }
  
          onPressAndHold: {
 -            if (Lipstick.compositor.launcherLayer.active) {
-+            if (Lipstick.compositor.launcherLayer.active  && !kmOn.value) {
++            if (Lipstick.compositor.launcherLayer.active && !kmOn.value) {
                  setEditMode(true)
              }
          }
-@@ -330,7 +335,7 @@ SilicaGridView {
+@@ -371,7 +376,7 @@ SilicaGridView {
                  anchors.horizontalCenter: parent.horizontalCenter
                  enabled: launcherEditMode && policy.value
                  opacity: enabled ? 1.0 : 0.0
 -                visible: launcherEditMode && !isFolder && AppControl.isUninstallable(object.filePath) && !object.isUpdating
-+                visible: launcherEditMode && !isFolder && AppControl.isUninstallable(object.filePath) && !object.isUpdating && !kidsModeSettings.kmOn 
-                 onClicked: launcher.removeApplication(object.filePath, object.title)
++                visible: launcherEditMode && !isFolder && AppControl.isUninstallable(object.filePath) && !object.isUpdating  && !kidsModeSettings.kmOn
+                 onClicked: removeApplication(object.filePath, object.title)
              }
          }
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml patch/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml
---- original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-03-13 09:23:06.737044060 +0000
-+++ patch/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-06-22 10:31:19.516365486 +0100
-@@ -13,10 +13,35 @@ import Sailfish.Policy 1.0
- import Sailfish.Lipstick 1.0
- import org.nemomobile.dbus 2.0
- import com.jolla.lipstick 0.1
-+import org.nemomobile.configuration 1.0
- 
- SilicaListView {
-     id: launcherPager
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml patchLc/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-06-21 06:28:08.815771450 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml	2018-06-21 20:12:27.044828396 +0100
+@@ -24,7 +24,32 @@ SilicaListView {
+         property bool useScroll: true
+         onFreeScrollChanged: launcher.manageDummyPages()
+     }    
 -
-+    ConfigurationValue {
++    
++ConfigurationValue {
 +        id: kmOn
 +        key: "/desktop/lipstick-jolla-home/kidsMode/kmOn"
 +        defaultValue: false
@@ -194,7 +186,7 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml patc
      property bool launcherActive: Lipstick.compositor.launcherLayer.active
      onLauncherActiveChanged: if (!launcherActive) { resetPosition(400) }
  
-@@ -112,7 +137,7 @@ SilicaListView {
+@@ -128,7 +153,7 @@ SilicaListView {
          }
  
          onPressAndHold: {
@@ -203,26 +195,26 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/launcher/Launcher.qml patc
                  Math.abs(mouse.x - pressX) < Theme.startDragDistance &&
                  Math.abs(mouse.y - pressY) < Theme.startDragDistance) {
                  launcher.setEditMode(true)
-@@ -131,11 +156,14 @@ SilicaListView {
+@@ -145,11 +170,14 @@ SilicaListView {
              gridManager.onStopScrolling: launcherPager.stopScrolling()
  
              model: LauncherFolderModel {
 +                id: lFolder
                  iconDirectories: Theme.launcherIconDirectories
 -                blacklistedApplications: {
-+                blacklistedApplications:kmOn.value? getBlackList(lockScreenShortcuts.value):getBlackList([ ])
++                blacklistedApplications: kmOn.value? getBlackList(lockScreenShortcuts.value):getBlackList([ ])
 +
 +                function getBlackList(appList) {
                      // Currently desktop-file path is good app grid item
                      // identifier. However, this is a subject to change in future.
 -                    var blacklist = []
-+                    var blacklist = appList 
++                    var blacklist = appList
                      var path = "/usr/share/applications"
  
                      if (!AccessPolicy.cameraEnabled) {
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml patch/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml
---- original/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-04-22 08:28:01.160162830 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-04-22 10:56:54.163754153 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml patchLc/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-06-21 06:26:58.635767216 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/notifications/NotificationPreview.qml	2018-06-21 06:27:34.865769402 +0100
 @@ -12,6 +12,7 @@ import com.jolla.lipstick 0.1
  import org.nemomobile.lipstick 0.1
  import org.nemomobile.thumbnailer 1.0
@@ -252,9 +244,9 @@ diff -rupN original/usr/share/lipstick-jolla-home-qt5/notifications/Notification
                  notificationWindow._invoked = true
                  notification.actionInvoked("default")
  
-diff -rupN original/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml patch/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml
---- original/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-04-21 19:02:44.831496953 +0100
-+++ patch/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-06-19 12:53:38.330505873 +0100
+diff -rupN originalLc/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml patchLc/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml
+--- originalLc/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-06-21 06:26:58.675767219 +0100
++++ patchLc/usr/share/lipstick-jolla-home-qt5/switcher/Switcher.qml	2018-06-21 06:27:34.905769404 +0100
 @@ -12,6 +12,7 @@ import com.jolla.lipstick 0.1
  import Sailfish.Silica 1.0
  import Sailfish.Silica.private 1.0

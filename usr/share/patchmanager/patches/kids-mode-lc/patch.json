@@ -1,0 +1,8 @@
+{
+    "name": "Kids mode patch for LC",
+    "description": "Patches launcher for kids mode only use this version if you are using launcher combined patch",
+    "category": "homescreen",
+	"infos": {
+        "maintainer": "Anant Gajjar"
+	}
+}

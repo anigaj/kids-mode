@@ -5,6 +5,7 @@ import com.jolla.settings.system 1.0
 import org.nemomobile.systemsettings 1.0
 import org.nemomobile.configuration 1.0
 import org.nemomobile.lipstick 0.1
+import io.thp.pyotherside 1.4
 
 Page 
 {
@@ -14,7 +15,7 @@ Page
     SilicaFlickable 
     {
         anchors.fill: parent
-        contentHeight: content.height
+        contentHeight: content.height + usersList.height + Theme.paddingLarge*2
 
         Column 
         {
@@ -31,10 +32,51 @@ Page
             
             SectionHeader 
             {
-                    //% "Pin"
-                    text: qsTrId("pin")
+                    //% "Enter/Exit"
+                    text: qsTrId("enter-exit")
             }               
-            
+            ComboBox
+            {
+                id: appCloseCombo
+                //% "On entering kids mode"
+                label: qsTrId("appClose-label")
+                currentIndex: kmSettings.closeAllApps ?     0 : 1 
+                menu: ContextMenu {
+                    MenuItem 
+                    {
+                        property bool mode: true
+                        //% "Close all applications"
+                       text: qsTrId("close-all")
+                    }
+                    MenuItem 
+                    {
+                        property bool mode: false
+                        //% "Hide applications"
+                       text: qsTrId("hide-nonkm")
+                    }   
+                }
+                onCurrentItemChanged: {
+                       if (currentItem) {
+                           kmSettings.closeAllApps = currentItem.mode
+                       }
+                   }
+            }
+            TextSwitch 
+            {
+                id: androidKmEnter
+                //% "Stop android support on entering kids mode"
+                text: qsTrId("android-onenter")
+                checked: kmSettings.androidEnter
+                onClicked: kmSettings.androidEnter = !kmSettings.androidEnter 
+            }
+            TextSwitch 
+            {
+                id: androidKmExit
+                //% "Stop android support on exiting kids mode"
+                text: qsTrId("android-onexit")
+                checked: kmSettings.androidExit
+                onClicked: kmSettings.androidExit = !kmSettings.androidExit 
+            }
             TextSwitch 
             {
                 id: pinSwitch
@@ -64,7 +106,51 @@ Page
                onClicked: pageStack.push(pinEntry)
                visible: kmSettings.pinActive 
             }
-            
+            SectionHeader
+            {
+                //% "Backups"
+                text: qsTrId("backups")
+            }
+            Label 
+            {
+                anchors 
+                {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.paddingLarge
+                }
+                opacity: 0.6
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //% "The folder layout is backed up on first use. Click backup to backup current folder layout. If the launcher has not been restored as expected then click restore to restore layout from the last backup."
+                text: qsTrId("backup-para")
+            }
+            Row
+            {
+                width: parent.width - 2* Theme.paddingLarge
+                spacing: Theme.paddingLarge
+                anchors.horizontalCenter: parent.horizontalCenter 
+                Button 
+                {
+                    width: parent.width/2 - Theme.paddingLarge/2 
+                   //% "Backup"
+                   text: qsTrId("backup")
+                   onClicked: python.call('helper.backupInitial',[],function() {}) 
+                }
+                Button 
+                {
+                    width: parent.width/2 - Theme.paddingLarge/2 
+                   //% "Restore"
+                   text: qsTrId("restore")
+                   onClicked: python.call('helper.restoreMainUser',['masterBackUp'],function(){
+                        kmSettings.triggerLoad = !kmSettings.triggerLoad
+                     /*   kmSettings.sync()
+                        kmSettings.triggerLoad = false*/
+                    }) 
+                }
+            }
             SectionHeader
             {
                 //% "Users"

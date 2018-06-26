@@ -21,13 +21,20 @@ Page
             }
         }
         textSize: Theme.fontSizeExtraLarge*2
-        NumberAnimation
+        SequentialAnimation
         {
             id: growIcon
-            target: selectedUser
-            property: "textSize"
-            to: Theme.fontSizeSmall
-            duration: 5000
+            NumberAnimation
+            {
+                target: selectedUser
+                property: "textSize"
+                to: Theme.fontSizeSmall
+                duration: 5000
+            }
+            ScriptAction
+            {
+                script: pageStack.replace(kmNotRunning)
+            }
         }
     }
     

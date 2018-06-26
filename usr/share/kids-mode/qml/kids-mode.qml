@@ -2,6 +2,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.thp.pyotherside 1.4
 import org.nemomobile.configuration 1.0
+import org.nemomobile.lipstick 0.1
+import org.nemomobile.dbus 2.0
 import "pages"
 import "settings"
 
@@ -15,11 +17,7 @@ ApplicationWindow
     
     initialPage: kmSettings.kmOn ? kmRunning : kmNotRunning 
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    Component.onCompleted: {
-        kmSettings.triggerLoad = false
-        kmSettings.triggerClose = false 
-        updateUsers()
-    }
+    Component.onCompleted: updateUsers()
     
     Component 
     {
@@ -42,6 +40,46 @@ ApplicationWindow
             importModule('helper', function () {});
         }
     }
+    LauncherModel 
+    {
+        id: appModel
+
+        function updateAppTitles ()
+        {
+            var appNames = []
+            for (var i = 0; i < itemCount; ++i) {
+                var item = get(i)
+                if(appsList.value.indexOf(item.filePath) != -1) appNames.push(item.title)
+            }
+            appTitles.value = appNames
+        }
+    }
+
+    DBusInterface 
+    {
+        id: apkInterface
+
+        bus: DBus.SystemBus
+        service: "com.jolla.apkd"
+        path: "/com/jolla/apkd"
+        iface: "com.jolla.apkd"
+    }
+    
+    ConfigurationValue 
+    {
+        id: appsList
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/appsList"
+        defaultValue: []
+    }
+    
+   ConfigurationValue 
+    {
+        id: appTitles
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/appTitles"
+        defaultValue: []
+    }    
     
     ConfigurationGroup
     {
@@ -54,6 +92,9 @@ ApplicationWindow
         property int currentUser: 0
         property bool triggerLoad: false   
         property bool triggerClose: false
+        property bool closeAllApps: true
+        property bool androidEnter: false
+        property bool androidExit: false
     }
         
     ConfigurationGroup
@@ -175,12 +216,10 @@ ApplicationWindow
         property bool turnOffKm: false
         onTriggered:   {
             if(kmSettings.kmOn) python.call('helper.restoreAppMenu',[],function() { 
-                kmSettings.triggerLoad = true
-                kmSettings.triggerLoad = false
+                kmSettings.triggerLoad = !kmSettings.triggerLoad 
                 }) 
-          else  python.call('helper.restoreMainUser',[],function(){
-                kmSettings.triggerLoad = true
-                kmSettings.triggerLoad = false     
+          else  python.call('helper.restoreMainUser',['launcherBackUp'],function(){
+                kmSettings.triggerLoad = !kmSettings.triggerLoad
                 })
             if(turnOnKm){ 
                 turnOnKm = false                
@@ -198,11 +237,11 @@ ApplicationWindow
 //Most of the changes have already been made before the remorse. It is used to give the delay required to wait for the modifed corrupt application.menu file to appear. This then needs to be overridden with the correct file
         onTriggered: {
            if(kmSettings.kmOn) python.call('helper.restoreAppMenu',[],function() {
-                kmSettings.triggerLoad = true
-                kmSettings.triggerClose = true })
-            else python.call('helper.restoreMainUser',[],function(){
-                kmSettings.triggerLoad = true
-                kmSettings.triggerClose= true}) 
+                kmSettings.triggerLoad = !kmSettings.triggerLoad
+                kmSettings.triggerClose =  !kmSettings.triggerClose})
+            else python.call('helper.restoreMainUser',['launcherBackUp'],function(){
+                kmSettings.triggerLoad = !kmSettings.triggerLoad
+                kmSettings.triggerClose= !kmSettings.triggerClose}) 
             }
         onCanceled: {
          if(kmSettings.kmOn) {
@@ -229,7 +268,9 @@ ApplicationWindow
             mainUserBackUp.backUpMainUser()
             userGroup.path =  "/desktop/lipstick-jolla-home/kidsMode/" + userId
             kmSettings.currentUser = userId
-            mainUser.copyKmUser() 
+            if(appsList.value.length != appTitles.value.length) appModel.updateAppTitles()
+            mainUser.copyKmUser()
+            if(kmSettings.androidEnter) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
             python.call('helper.backupMainUser',[],function  () {
                     kmSettings.kmOn = true
                     //% "Entering kids mode"
@@ -247,6 +288,7 @@ ApplicationWindow
         else {
             kmSettings.kmOn = false
             mainUser.restoreMainUser()
+            if(kmSettings.androidExit) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
             //% "Exiting kids mode"
             kmRemorse.execute(qsTrId("exit-km"))
         }

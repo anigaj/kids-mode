@@ -32,13 +32,20 @@ Page
             }
         }
         textSize: Theme.fontSizeSmall
-        NumberAnimation
+        SequentialAnimation
         {
-            id: growIcon
-            target: selectedUser
-            property: "textSize"
-            to: Theme.fontSizeExtraLarge*2
-            duration: 5000
+             id: growIcon
+            NumberAnimation
+            {           
+                target: selectedUser
+                property: "textSize"
+                to: Theme.fontSizeExtraLarge*2
+                duration: 5000
+            }
+            ScriptAction
+            {
+                script: pageStack.replace(kmRunning)
+            }
         }
     }
     

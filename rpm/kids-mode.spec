@@ -1,6 +1,6 @@
 Name:          kids-mode
-Version:       0.1
-Release:       2
+Version:       0.2
+Release:       1
 Summary:   Allows only selected applications to be made available to a user in launcher.
 Group:         System/Patches
 Vendor:        Anant Gajjar
@@ -30,11 +30,11 @@ Notes:
 Newly installed applications need to be unselected in settings otherwise they will show in kids mode.
 The pin is stored as plain text in dconf and so not secure.
 This may conflict with other  patches of launcher, switcher, notifications or eventsview.
-If the launcher folders aren't restored try a home screen restart. If that doesn't work then copy files in /home/nemo/.config/kids-mode/masterBackUp to  /home/nemo/.config/lipstick and restart home screen.
+If the launcher folders aren't restored then you can manually restore from the last backup in settings.
 
 To-dos:
 Don't show newly installed applications in kids mode as default behavioir. 
-Look into whether running applications can be hidden instead of closed.
+User configurable notification settings.
 User changeable kids-mode ambiences.
 %files
 /usr/share/patchmanager/patches/*
@@ -65,6 +65,7 @@ fi
  
 if [ -f /usr/sbin/patchmanager ]; then
 /usr/sbin/patchmanager -u kids-mode || true
+/usr/sbin/patchmanager -u kids-mode-lc || true
 fi
 cd /usr/share/kids-mode/translations 
 
@@ -91,6 +92,13 @@ fi
 
 %changelog
 *Mon Mar 14 2015 Builder <builder@...>
+0.2-1
+- Added option to hide applications instead of closing them. Note: applications launched from a notification are still closed.
+- Added option to manually back up and restore launcher layout from settings.
+- Added option to stop android support on either entering or exiting kids mode.
+- Added hungarian translation.
+- Added a specific patch for users of launcher combined patch (works with patch from web catalog using patchmanager 3)
+- bug fix to improve restoring of launcher when cancelled through remorse.
 0.1-2
 - bug fix: now shows english text if translation is not available instead of the translation id.
 - Added translations for Dutch, Dutch(Belgium), French, Italian, Polish, Spanish and Swedish. 
