@@ -13,12 +13,12 @@
         <translation>Kids mode</translation>
     </message>
     <message id="enter-km">
-        <location filename="../qml/kids-mode.qml" line="277"/>
+        <location filename="../qml/kids-mode.qml" line="318"/>
         <source>Entering kids mode</source>
         <translation>Entering kids mode</translation>
     </message>
     <message id="exit-km">
-        <location filename="../qml/kids-mode.qml" line="293"/>
+        <location filename="../qml/kids-mode.qml" line="334"/>
         <source>Exiting kids mode</source>
         <translation>Exiting kids mode</translation>
     </message>
@@ -130,12 +130,27 @@
         <translation>Restore</translation>
     </message>
     <message id="users">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="157"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="155"/>
         <source>Users</source>
         <translation>Users</translation>
     </message>
+    <message id="ambiences-para">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="170"/>
+        <source>Select the favorite ambiences for the main user and those that will be available in kids mode.</source>
+        <translation>Select the favorite ambiences for the main user and those that will be available in kids mode.</translation>
+    </message>
+    <message id="main-ambiences">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="182"/>
+        <source>Main ambiences</source>
+        <translation>Main ambiences</translation>
+    </message>
+    <message id="km-ambiences">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="189"/>
+        <source>Kids mode ambiences</source>
+        <translation>Kids mode ambiences</translation>
+    </message>
     <message id="add-new-user">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="165"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="198"/>
         <source>Add new user</source>
         <translation>Add new user</translation>
     </message>
@@ -195,6 +210,26 @@
         <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
         <source>Select the items that will be available in events view for  kids mode.</source>
         <translation>Select the items that will be available in events view for  kids mode.</translation>
+    </message>
+    <message id="notifications">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="149"/>
+        <source>Notifications</source>
+        <translation>Notifications</translation>
+    </message>
+    <message id="notifications-para">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="164"/>
+        <source>Notifications in kids mode cannot be clicked. Choose whether they are shown.</source>
+        <translation>Notifications in kids mode cannot be clicked. Choose whether they are shown.</translation>
+    </message>
+    <message id="notifications-events">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="170"/>
+        <source>Show notifications in events view </source>
+        <translation>Show notifications in events view </translation>
+    </message>
+    <message id="notifications-popups">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="178"/>
+        <source>Show notification pop ups</source>
+        <translation>Show notification pop ups</translation>
     </message>
 </context>
 </TS>

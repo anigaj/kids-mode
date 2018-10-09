@@ -143,6 +143,42 @@ Page
                 userId: page.userId
                 width: parent.width
             }
+            SectionHeader 
+            {
+                 //% "Notifications"
+                text: qsTrId("notifications")
+            }
+            Label 
+            {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.paddingLarge
+                }
+                opacity: 0.6
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //% "Notifications in kids mode cannot be clicked. Choose whether they are shown."
+                text: qsTrId("notifications-para")
+            }
+            TextSwitch 
+            {
+                id: evNotifications
+                //% "Show notifications in events view "
+                text: qsTrId("notifications-events")
+                checked: showEvNotifications.value
+                onClicked: showEvNotifications.value = !showEvNotifications.value 
+            }
+            TextSwitch 
+            {
+                id: popUpNotifications
+                //% "Show notification pop ups"
+                text: qsTrId("notifications-popups")
+                checked: showPopUps.value
+                onClicked: showPopUps.value = !showPopUps.value 
+            }
         }
         
         VerticalScrollDecorator {}   
@@ -204,7 +240,18 @@ Page
         key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/iconColor"
             defaultValue: "red"
     }
-    
+    ConfigurationValue {
+        id: showEvNotifications
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/showEvNotifications"
+        defaultValue: false
+    }
+    ConfigurationValue {
+        id: showPopUps
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+page.userId+"/showPopUps"
+        defaultValue: true
+    }
     Component 
     {
         id: appSelector

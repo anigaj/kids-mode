@@ -38,7 +38,7 @@ import pyotherside
 
 import os, json, shutil, glob, copy
 import xml.etree.ElementTree as ET
-
+import dbus
 #Keep a backup that  is created at start up or when all users have been removed. This is in case things go wrong
 def backupInitial():       
 #copy backed up files
@@ -91,4 +91,50 @@ def restoreMainUser(backupFolder):
     filelist = glob.glob('/home/nemo/.config/kids-mode/'+backupFolder+'/*')     
     for filename in filelist:                                                                 
         shutil.copy(filename,'/home/nemo/.config/lipstick/')
+
+#set the ambience and favorites using dbus
+def setFavorites(ambience, favorites):                                                                            
+    
+    bus = dbus.SessionBus()
+    ambD = bus.get_object('com.jolla.ambienced','/com/jolla/ambienced')
+    ambDInterface = dbus.Interface(ambD,dbus_interface='com.jolla.ambienced')
+
+    print(ambience)
+    ind = ambDInterface.setAmbience('file://' + ambience)
+
+    filelist = glob.glob('/usr/share/ambience/*')  
+    for filename in filelist:                                                                  
+        ambName = 'file://' + filename + '/' + os.path.basename(filename)+'.ambience'
+        ind = ambDInterface.createAmbience(ambName)
+        a_dict = {"favorite": False}
+        if ambName in favorites:                                                                                            
+            a_dict["favorite"] = True
+
+        ambDInterface.saveAttributes(1, ind, a_dict)
+
+    filelist = glob.glob('/home/nemo/.local/share/ambienced/wallpapers/*')
+    for filename in filelist:                                                                 
+        ambName = 'file://' + filename
+        ind = ambDInterface.createAmbience(ambName)
+        a_dict = {"favorite": False}
+        if ambName in favorites:                                                                                            
+            a_dict["favorite"] = True
+
+        ambDInterface.saveAttributes(1, ind, a_dict)
+
+
+#Function that populates list of ambiences
+def getAmbiences():
+ 
+    filelist = glob.glob('/usr/share/ambience/*')  
+    ambiences = []   
+    for filename in filelist:                                                                 
+        a_dict = {'name':os.path.basename(filename), 'url':'file://' + filename + '/' + os.path.basename(filename)+'.ambience', 'imageUrl':'file://' +  filename + '/images/ambience_' +os.path.basename( filename) + '.jpg'} 
+        ambiences.append(a_dict)
+
+    filelist = glob.glob('/home/nemo/.local/share/ambienced/wallpapers/*')
+    for filename in filelist:                                                                 
+        a_dict = {'name':' ', 'url':'file://' + filename, 'imageUrl':'file://' +  filename }  
+        ambiences.append(a_dict)
+    return ambiences
  

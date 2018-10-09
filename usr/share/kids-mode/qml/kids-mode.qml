@@ -81,6 +81,41 @@ ApplicationWindow
         defaultValue: []
     }    
     
+    ConfigurationValue 
+    {
+        id: mainAmbiences
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/mainAmbiences"
+        defaultValue: []
+    }    
+    ConfigurationValue 
+    {
+        id: kmAmbiences
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/kmAmbiences"
+        defaultValue: []
+    }
+    ConfigurationValue 
+    {
+        id: currentAmbience
+
+        key: "/desktop/jolla/theme/active_ambience"
+        defaultValue: ""
+    }
+    ConfigurationValue 
+    {
+        id: mainAmbience
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/ambience"
+        defaultValue: currentAmbience.value
+    }
+    ConfigurationValue 
+    {
+        id: userAmbience
+
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/ambience"
+        defaultValue: currentAmbience.value
+    }    
     ConfigurationGroup
     {
         id: kmSettings
@@ -216,7 +251,7 @@ ApplicationWindow
         property bool turnOffKm: false
         onTriggered:   {
             if(kmSettings.kmOn) python.call('helper.restoreAppMenu',[],function() { 
-                kmSettings.triggerLoad = !kmSettings.triggerLoad 
+                kmSettings.triggerLoad = !kmSettings.triggerLoad
                 }) 
           else  python.call('helper.restoreMainUser',['launcherBackUp'],function(){
                 kmSettings.triggerLoad = !kmSettings.triggerLoad
@@ -238,10 +273,16 @@ ApplicationWindow
         onTriggered: {
            if(kmSettings.kmOn) python.call('helper.restoreAppMenu',[],function() {
                 kmSettings.triggerLoad = !kmSettings.triggerLoad
-                kmSettings.triggerClose =  !kmSettings.triggerClose})
+                kmSettings.triggerClose =  !kmSettings.triggerClose
+                python.call('helper.setFavorites',[userAmbience.value, kmAmbiences.value],function(){})
+                if(kmSettings.androidEnter) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
+                })
             else python.call('helper.restoreMainUser',['launcherBackUp'],function(){
                 kmSettings.triggerLoad = !kmSettings.triggerLoad
-                kmSettings.triggerClose= !kmSettings.triggerClose}) 
+                python.call('helper.setFavorites',[mainAmbience.value, mainAmbiences.value],function(){})
+                kmSettings.triggerClose= !kmSettings.triggerClose
+                 if(kmSettings.androidExit) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
+                }) 
             }
         onCanceled: {
          if(kmSettings.kmOn) {
@@ -270,7 +311,7 @@ ApplicationWindow
             kmSettings.currentUser = userId
             if(appsList.value.length != appTitles.value.length) appModel.updateAppTitles()
             mainUser.copyKmUser()
-            if(kmSettings.androidEnter) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
+            mainAmbience.value = currentAmbience.value
             python.call('helper.backupMainUser',[],function  () {
                     kmSettings.kmOn = true
                     //% "Entering kids mode"
@@ -288,7 +329,7 @@ ApplicationWindow
         else {
             kmSettings.kmOn = false
             mainUser.restoreMainUser()
-            if(kmSettings.androidExit) apkInterface.typedCall("controlService", [{ "type": "b", "value": false }])
+            userAmbience.value = currentAmbience.value
             //% "Exiting kids mode"
             kmRemorse.execute(qsTrId("exit-km"))
         }

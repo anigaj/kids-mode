@@ -4,56 +4,56 @@
     <message id="kids-mode">
         <location filename="../qml/cover/TurnOffKmCover.qml" line="15"/>
         <location filename="../qml/cover/TurnOnKmCover.qml" line="10"/>
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="49"/>
-        <location filename="../qml/pages/TurnOnKmPage.qml" line="71"/>
-        <location filename="../qml/settings/MainSettingsPage.qml" line="29"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="56"/>
+        <location filename="../qml/pages/TurnOnKmPage.qml" line="78"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="30"/>
         <source>Kids mode</source>
         <translation>Kölyök mód</translation>
     </message>
     <message id="enter-km">
-        <location filename="../qml/kids-mode.qml" line="222"/>
+        <location filename="../qml/kids-mode.qml" line="318"/>
         <source>Entering kids mode</source>
         <translation>Belépés a kölyök módba</translation>
     </message>
     <message id="exit-km">
-        <location filename="../qml/kids-mode.qml" line="232"/>
+        <location filename="../qml/kids-mode.qml" line="334"/>
         <source>Exiting kids mode</source>
         <translation>Kilépés a kölyök módból</translation>
     </message>
     <message id="change-user-name">
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="65"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="72"/>
         <source>Click text to change user name or icon to change icon colour.</source>
         <translation>Kattints a szövegre a felhasználónév, vagy az ikonra a szín megváltoztatásához</translation>
     </message>
     <message id="exit-kids-mode">
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="128"/>
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="136"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="135"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="143"/>
         <source>Exit kids mode</source>
         <translation>Kilépés a kölyök módból</translation>
     </message>
     <message id="exit-pin-kids-mode">
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="148"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="155"/>
         <source>Enter pin to exit kids mode</source>
         <translation>Írd be a kódot a kilépéshez</translation>
     </message>
     <message id="pin-error">
-        <location filename="../qml/pages/TurnOffKmPage.qml" line="179"/>
+        <location filename="../qml/pages/TurnOffKmPage.qml" line="186"/>
         <location filename="../qml/settings/PinEntryPage.qml" line="122"/>
         <source>Incorrect pin entered</source>
         <translation>Helytelen kód</translation>
     </message>
     <message id="Settings">
-        <location filename="../qml/pages/TurnOnKmPage.qml" line="56"/>
+        <location filename="../qml/pages/TurnOnKmPage.qml" line="63"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message id="km-add-user">
-        <location filename="../qml/pages/TurnOnKmPage.qml" line="86"/>
+        <location filename="../qml/pages/TurnOnKmPage.qml" line="93"/>
         <source>Please add a user</source>
         <translation>Adj hozzá egy felasználót</translation>
     </message>
     <message id="user-select-para">
-        <location filename="../qml/pages/TurnOnKmPage.qml" line="107"/>
+        <location filename="../qml/pages/TurnOnKmPage.qml" line="114"/>
         <source>Click on user to enter kids mode or use pulley menu to change settings.</source>
         <translation>Kattints a felhasználóra a kölyök módba való belépéshez, vagy használd a lehúzható menüt a beállítások megváltoztatásához.</translation>
     </message>
@@ -63,28 +63,88 @@
         <source>Select applications</source>
         <translation>Alkalmazások kijelölése</translation>
     </message>
-    <message id="pin">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="35"/>
-        <source>Pin</source>
-        <translation>Kód</translation>
+    <message id="enter-exit">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="36"/>
+        <source>Enter/Exit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="appClose-label">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="42"/>
+        <source>On entering kids mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="close-all">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="49"/>
+        <source>Close all applications</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="hide-nonkm">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="55"/>
+        <source>Hide applications</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="android-onenter">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="68"/>
+        <source>Stop android support on entering kids mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="android-onexit">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="76"/>
+        <source>Stop android support on exiting kids mode</source>
+        <translation type="unfinished"/>
     </message>
     <message id="require-pin">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="42"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="84"/>
         <source>Require pin to exit kids mode</source>
         <translation>Kód kérése a kilépéshez</translation>
     </message>
     <message id="change-pin">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="63"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="105"/>
         <source>Change pin</source>
         <translation>Kód megváltoztatása</translation>
     </message>
+    <message id="backups">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="112"/>
+        <source>Backups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="backup-para">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="128"/>
+        <source>The folder layout is backed up on first use. Click backup to backup current folder layout. If the launcher has not been restored as expected then click restore to restore layout from the last backup.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="backup">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="139"/>
+        <source>Backup</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="restore">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="146"/>
+        <source>Restore</source>
+        <translation type="unfinished"/>
+    </message>
     <message id="users">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="71"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="155"/>
         <source>Users</source>
         <translation>Felhasználók</translation>
     </message>
+    <message id="ambiences-para">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="170"/>
+        <source>Select the favorite ambiences for the main user and those that will be available in kids mode.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="main-ambiences">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="182"/>
+        <source>Main ambiences</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="km-ambiences">
+        <location filename="../qml/settings/MainSettingsPage.qml" line="189"/>
+        <source>Kids mode ambiences</source>
+        <translation type="unfinished"/>
+    </message>
     <message id="add-new-user">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="79"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="198"/>
         <source>Add new user</source>
         <translation>Új felhasználó hozzáadása</translation>
     </message>
@@ -144,6 +204,26 @@
         <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
         <source>Select the items that will be available in events view for  kids mode.</source>
         <translation>Válaszd ki mely elemek lesznek elérhetőek kölyök mód események nézetében.</translation>
+    </message>
+    <message id="notifications">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="149"/>
+        <source>Notifications</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="notifications-para">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="164"/>
+        <source>Notifications in kids mode cannot be clicked. Choose whether they are shown.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="notifications-events">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="170"/>
+        <source>Show notifications in events view </source>
+        <translation type="unfinished"/>
+    </message>
+    <message id="notifications-popups">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="178"/>
+        <source>Show notification pop ups</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -146,8 +146,6 @@ Page
                    text: qsTrId("restore")
                    onClicked: python.call('helper.restoreMainUser',['masterBackUp'],function(){
                         kmSettings.triggerLoad = !kmSettings.triggerLoad
-                     /*   kmSettings.sync()
-                        kmSettings.triggerLoad = false*/
                     }) 
                 }
             }
@@ -156,7 +154,42 @@ Page
                 //% "Users"
                 text: qsTrId("users")
             }
-            
+            Label 
+            {
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.paddingLarge
+                }
+                opacity: 0.6
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //% "Select the favorite ambiences for the main user and those that will be available in kids mode."
+                text: qsTrId("ambiences-para")
+            }
+
+            Row
+            {
+                width: parent.width - 2* Theme.paddingLarge
+                spacing: Theme.paddingLarge
+                anchors.horizontalCenter: parent.horizontalCenter 
+            Button 
+            {
+                width: parent.width/2 - Theme.paddingLarge/2
+                    //% "Main ambiences"
+                    text: qsTrId("main-ambiences")
+                    onClicked: pageStack.push("AmbienceSelectionPage.qml",{"dconfKey": "/desktop/lipstick-jolla-home/kidsMode/mainAmbiences"})
+            }
+            Button 
+            {
+                width: parent.width/2 - Theme.paddingLarge/2
+                    //% "Kids mode ambiences"
+                    text: qsTrId("km-ambiences")
+                    onClicked: pageStack.push("AmbienceSelectionPage.qml",{"dconfKey": "/desktop/lipstick-jolla-home/kidsMode/kmAmbiences"})
+                }
+            }
             Button 
             {
                 width: parent.width - 2* Theme.paddingLarge
@@ -189,6 +222,7 @@ Page
                 Component.onCompleted: usersList.userHeight = height
             }
         }
+        VerticalScrollDecorator {}  
     }
     
     Component 
@@ -215,7 +249,6 @@ Page
             userId: page.userId
         }
     }
-    
     onStatusChanged:  if(status === PageStatus.Active) updateUsers() 
 
     function getUserId()
