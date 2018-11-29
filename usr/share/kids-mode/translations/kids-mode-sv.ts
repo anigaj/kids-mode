@@ -11,12 +11,12 @@
         <translation>Barnläge</translation>
     </message>
     <message id="enter-km">
-        <location filename="../qml/kids-mode.qml" line="318"/>
+        <location filename="../qml/kids-mode.qml" line="292"/>
         <source>Entering kids mode</source>
         <translation>Går in i barnläge</translation>
     </message>
     <message id="exit-km">
-        <location filename="../qml/kids-mode.qml" line="334"/>
+        <location filename="../qml/kids-mode.qml" line="308"/>
         <source>Exiting kids mode</source>
         <translation>Avslutar barnläge</translation>
     </message>
@@ -130,21 +130,17 @@
     </message>
     <message id="ambiences-para">
         <location filename="../qml/settings/MainSettingsPage.qml" line="170"/>
-        <source>Select the favorite ambiences for the main user and those that will be available in kids mode.</source>
-        <translation>Välj favoritatmosfärer för huvudanvändaren och vilka som skall vara tillgängliga i barnläget.</translation>
+        <source>Select the favorite ambiences for the main user.</source>
+        <oldsource>Select the favorite ambiences for the main user and those that will be available in kids mode.</oldsource>
+        <translation>Välj favoritmiljöer för huvudanvändaren.</translation>
     </message>
     <message id="main-ambiences">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="182"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="177"/>
         <source>Main ambiences</source>
         <translation>Huvudatmosfärer</translation>
     </message>
-    <message id="km-ambiences">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="189"/>
-        <source>Kids mode ambiences</source>
-        <translation>Atmosfärer i barnläge</translation>
-    </message>
     <message id="add-new-user">
-        <location filename="../qml/settings/MainSettingsPage.qml" line="198"/>
+        <location filename="../qml/settings/MainSettingsPage.qml" line="187"/>
         <source>Add new user</source>
         <translation>Lägg till ny användare</translation>
     </message>
@@ -195,33 +191,48 @@
         <source>Select the applications that will be available in kids mode.</source>
         <translation>Välj de appar som skall vara tillgängliga i barnläget.</translation>
     </message>
-    <message id="events-view">
+    <message id="top-menu">
         <location filename="../qml/settings/UserSettingsPage.qml" line="121"/>
+        <source>Top menu</source>
+        <translation>Toppmeny</translation>
+    </message>
+    <message id="top-para">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
+        <source>Select the items that will be available in the top menu for  kids mode.</source>
+        <translation>Välj de objekt som skall vara tillgängliga på toppmenyn i barnläget.</translation>
+    </message>
+    <message id="select-topmenu">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="144"/>
+        <source>Select top menu items</source>
+        <translation>Välj toppmenyobjekt</translation>
+    </message>
+    <message id="events-view">
+        <location filename="../qml/settings/UserSettingsPage.qml" line="151"/>
         <source>Events view</source>
         <translation>Händelsevy</translation>
     </message>
     <message id="events-para">
-        <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
+        <location filename="../qml/settings/UserSettingsPage.qml" line="167"/>
         <source>Select the items that will be available in events view for  kids mode.</source>
         <translation>Välj de objekt som skall vara tillgängliga i händelsevyn för barnläget.</translation>
     </message>
     <message id="notifications">
-        <location filename="../qml/settings/UserSettingsPage.qml" line="149"/>
+        <location filename="../qml/settings/UserSettingsPage.qml" line="178"/>
         <source>Notifications</source>
         <translation>Aviseringar</translation>
     </message>
     <message id="notifications-para">
-        <location filename="../qml/settings/UserSettingsPage.qml" line="164"/>
+        <location filename="../qml/settings/UserSettingsPage.qml" line="193"/>
         <source>Notifications in kids mode cannot be clicked. Choose whether they are shown.</source>
         <translation>Aviseringar kan inte tryckas på, i barnläget. Välj om de skall visas.</translation>
     </message>
     <message id="notifications-events">
-        <location filename="../qml/settings/UserSettingsPage.qml" line="170"/>
+        <location filename="../qml/settings/UserSettingsPage.qml" line="199"/>
         <source>Show notifications in events view </source>
         <translation>Visa aviseringar i händelsevyn</translation>
     </message>
     <message id="notifications-popups">
-        <location filename="../qml/settings/UserSettingsPage.qml" line="178"/>
+        <location filename="../qml/settings/UserSettingsPage.qml" line="207"/>
         <source>Show notification pop ups</source>
         <translation>Visa popup-fönster med aviseringar</translation>
     </message>

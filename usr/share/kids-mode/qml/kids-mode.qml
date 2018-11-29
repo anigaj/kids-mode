@@ -92,7 +92,7 @@ ApplicationWindow
     {
         id: kmAmbiences
 
-        key: "/desktop/lipstick-jolla-home/kidsMode/kmAmbiences"
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/kmAmbiences"
         defaultValue: []
     }
     ConfigurationValue 
@@ -115,7 +115,7 @@ ApplicationWindow
 
         key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/ambience"
         defaultValue: currentAmbience.value
-    }    
+    }
     ConfigurationGroup
     {
         id: kmSettings
@@ -139,21 +139,17 @@ ApplicationWindow
         property string userName:''
         property string iconColor: "#e60003"
         property bool firstUse: true
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false  
+        property bool topmenu_ambiences_enabled: true 
     }
     
     ConfigurationGroup
     {
         id: mainUserBackUp
         path: "/desktop/lipstick-jolla-home/kidsMode/mainUser"
-        property bool events_screen_shortcuts_enabled: false
-        property bool events_screen_actions_enabled: false 
+        property bool topmenu_ambiences_enabled: true  
         function backUpMainUser ()
         {
-            events_screen_shortcuts_enabled = mainUser.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = mainUser.events_screen_actions_enabled
-            mainUserBuActions.value =  mainUserActions.value 
+            topmenu_ambiences_enabled = mainUser.topmenu_ambiences_enabled
             mainUserBuShortcuts.value =  mainUserShortcuts.value
             mainUserBuWidgets.value =  mainUserWidgets.value
         }      
@@ -165,36 +161,26 @@ ApplicationWindow
         path: "/desktop/lipstick-jolla-home"
         property bool events_screen_shortcuts_enabled: false
         property bool events_screen_actions_enabled: false  
-        
+        property bool topmenu_ambiences_enabled: true  
         function copyKmUser ()
         {
-            events_screen_shortcuts_enabled = userGroup.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = userGroup.events_screen_actions_enabled
-            mainUserActions.value =  userGroupActions.value 
+            topmenu_ambiences_enabled = userGroup.topmenu_ambiences_enabled
             mainUserShortcuts.value =  userGroupShortcuts.value
             mainUserWidgets.value =  userGroupWidgets.value
         }
         
         function restoreMainUser ()
         {
-             events_screen_shortcuts_enabled = mainUserBackUp.events_screen_shortcuts_enabled
-            events_screen_actions_enabled = mainUserBackUp.events_screen_actions_enabled
-            mainUserActions.value =  mainUserBuActions.value 
-            mainUserShortcuts.value =  mainUserBuShortcuts.value
+            topmenu_ambiences_enabled = mainUserBackUp.topmenu_ambiences_enabled
+          mainUserShortcuts.value =  mainUserBuShortcuts.value
             mainUserWidgets.value =  mainUserBuWidgets.value
         }
     }
     //keep getting error trying to copy the arrays so have to use configuration values as a work around
     ConfigurationValue
     {
-        id: userGroupActions
-        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
         id: userGroupShortcuts
-        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/events_screen_shortcuts"
+        key: "/desktop/lipstick-jolla-home/kidsMode/"+kmSettings.currentUser+"/topmenu_shortcuts"
         defaultValue: []
     }
     ConfigurationValue
@@ -205,14 +191,8 @@ ApplicationWindow
     }
     ConfigurationValue
     {
-        id: mainUserActions
-        key: "/desktop/lipstick-jolla-home/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
         id: mainUserShortcuts
-        key: "/desktop/lipstick-jolla-home/events_screen_shortcuts"
+        key: "/desktop/lipstick-jolla-home/topmenu_shortcuts"
         defaultValue: []
     }
     ConfigurationValue
@@ -223,14 +203,8 @@ ApplicationWindow
     }
     ConfigurationValue
     {
-        id: mainUserBuActions
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_actions"
-        defaultValue: []
-    }
-    ConfigurationValue
-    {
         id: mainUserBuShortcuts
-        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/events_screen_shortcuts"
+        key: "/desktop/lipstick-jolla-home/kidsMode/mainUser/topmenu_shortcuts"
         defaultValue: []
     }
     ConfigurationValue

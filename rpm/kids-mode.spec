@@ -1,5 +1,5 @@
 Name:          kids-mode
-Version:       0.3
+Version:       0.4
 Release:       1
 Summary:   Allows only selected applications to be made available to a user in launcher.
 Group:         System/Patches
@@ -8,7 +8,7 @@ Distribution:  SailfishOS
 Packager: Anant Gajjar
 License:       GPL
 Requires: patchmanager
-Requires: sailfish-version >= 2.1.4
+Requires: sailfish-version >= 3.0.0
 Requires: pyotherside-qml-plugin-python3-qt5
 Requires: libsailfishapp-launcher
 
@@ -17,20 +17,20 @@ BuildArch: noarch
 %description
 This is a patch and application that creates a kids mode. The patch modifies the launcher, eventsview, notifications and switcher code to allows the application to work.
  
-When kids mode is activated for a user  only the configured applications can be seen in launcher and launched. Long press is disabled in launcher. The ambience is changed if the user has set a different one. Only the configured switches and actions are available in the pull down menu for events view. Notifications in events view and  pop-ups can't be clicked.  Whether notifications are shown can be configured per user.
+When kids mode is activated for a user  only the configured applications can be seen in launcher and launched. Long press is disabled in launcher. The ambience is changed if the user has set a different one. Only the configured shortcuts and ambiences are available in the top menu. Notifications in events view and  pop-ups can't be clicked.  Whether notifications are shown can be configured per user.
 
 When the user exits kids modes then the normal user settings are restored. A pin can be set to exit kids mode. 
 
 Features:
-- Multiple users can be created, each with own configuration for launcher,  events view shortcuts and notification preferences.
-- Which ambiences are available in the lock menu can be configured. Users can only switch between available ambiences. The ambience is automatically changed when entering and exiting kids mode.
+- Multiple users can be created, each with own configuration for launcher,  events view widgets, top menu shortcuts and notification preferences.
+- Which ambiences are available in the top menu can be configured. Users can only switch between available ambiences. The ambience is automatically changed when entering and exiting kids mode.
 - Can be activated and deactivated from the cover.
 - Pin can be set to exit kids mode.
 
 Notes:
 Newly installed applications need to be unselected in settings otherwise they will show in kids mode.
 The pin is stored as plain text in dconf and so not secure.
-This may conflict with other  patches of launcher, switcher, notifications or eventsview.
+This may conflict with other  patches of launcher, switcher, notifications, top menu or eventsview.
 If the launcher folders aren't restored then you can manually restore from the last backup in settings.
 The favorite ambiences for the main user need to be selected in settings as there is no way to access this information at present.
 
@@ -92,6 +92,12 @@ fi
 
 %changelog
 *Mon Mar 14 2015 Builder <builder@...>
+0.4-1
+- Compatible with Sailfish 3.0
+- Added settings for top menu options for a user
+- Ambience selection is now per user
+- Added Chinese(Zhi) translations
+- Updated Finnish (Finland) and Swedish translations
 0.3-1
 - Added user specific notification settings to choose whether they are show in events view and whether they pop up.
 - Added ambience features.  

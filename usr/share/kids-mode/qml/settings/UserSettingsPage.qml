@@ -117,6 +117,36 @@ Page
             
             SectionHeader 
             {
+                 //% "Top menu"
+                text: qsTrId("top-menu")
+            }
+            
+            Label 
+            {               
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.horizontalPageMargin
+                    right: parent.right
+                    rightMargin: Theme.paddingLarge
+                }
+                opacity: 0.6
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                //% "Select the items that will be available in the top menu for  kids mode."
+                text: qsTrId("top-para")
+            }
+            Button 
+            {
+                width: parent.width - 2* Theme.paddingLarge
+               anchors.horizontalCenter: parent.horizontalCenter 
+                    //% "Select top menu items"
+                    text: qsTrId("select-topmenu")
+                    onClicked: pageStack.push(tmSelector)
+            }
+            
+            SectionHeader 
+            {
                  //% "Events view"
                 text: qsTrId("events-view")
             }
@@ -136,7 +166,6 @@ Page
                 //% "Select the items that will be available in events view for  kids mode."
                 text: qsTrId("events-para")
             }
-            
             EventsviewSettings 
             {
                 id: evSettings
@@ -261,7 +290,14 @@ Page
             userId: page.userId
         }
     }
-    
+    Component 
+    {
+        id:tmSelector 
+        TopMenuSettings
+        {
+                userId: page.userId
+        }
+    }
     Component.onCompleted: if(firstUse.value) {
          applicationModel.saveAppList()
         firstUse.value = false

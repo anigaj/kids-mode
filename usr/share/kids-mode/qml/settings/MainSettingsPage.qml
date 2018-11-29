@@ -166,30 +166,19 @@ Page
                 wrapMode: Text.Wrap
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeExtraSmall
-                //% "Select the favorite ambiences for the main user and those that will be available in kids mode."
+                //% "Select the favorite ambiences for the main user."
                 text: qsTrId("ambiences-para")
             }
 
-            Row
-            {
-                width: parent.width - 2* Theme.paddingLarge
-                spacing: Theme.paddingLarge
-                anchors.horizontalCenter: parent.horizontalCenter 
             Button 
             {
-                width: parent.width/2 - Theme.paddingLarge/2
+                width: parent.width - 2*Theme.paddingLarge
                     //% "Main ambiences"
                     text: qsTrId("main-ambiences")
+                    anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: pageStack.push("AmbienceSelectionPage.qml",{"dconfKey": "/desktop/lipstick-jolla-home/kidsMode/mainAmbiences"})
             }
-            Button 
-            {
-                width: parent.width/2 - Theme.paddingLarge/2
-                    //% "Kids mode ambiences"
-                    text: qsTrId("km-ambiences")
-                    onClicked: pageStack.push("AmbienceSelectionPage.qml",{"dconfKey": "/desktop/lipstick-jolla-home/kidsMode/kmAmbiences"})
-                }
-            }
+
             Button 
             {
                 width: parent.width - 2* Theme.paddingLarge
