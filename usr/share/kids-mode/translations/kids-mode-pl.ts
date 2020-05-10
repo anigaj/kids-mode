@@ -132,12 +132,12 @@
         <location filename="../qml/settings/MainSettingsPage.qml" line="170"/>
         <source>Select the favorite ambiences for the main user.</source>
         <oldsource>Select the favorite ambiences for the main user and those that will be available in kids mode.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Wybierz ulubione atmosfery dla głównego użytkownika.</translation>
     </message>
     <message id="main-ambiences">
         <location filename="../qml/settings/MainSettingsPage.qml" line="177"/>
         <source>Main ambiences</source>
-        <translation type="unfinished"/>
+        <translation>Główne atmosfery</translation>
     </message>
     <message id="add-new-user">
         <location filename="../qml/settings/MainSettingsPage.qml" line="187"/>
@@ -194,17 +194,17 @@
     <message id="top-menu">
         <location filename="../qml/settings/UserSettingsPage.qml" line="121"/>
         <source>Top menu</source>
-        <translation type="unfinished"/>
+        <translation>Górne menu</translation>
     </message>
     <message id="top-para">
         <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
         <source>Select the items that will be available in the top menu for  kids mode.</source>
-        <translation type="unfinished"/>
+        <translation>Wybierz pozycje, które będą dostępne w górnym menu trybu dla dzieci.</translation>
     </message>
     <message id="select-topmenu">
         <location filename="../qml/settings/UserSettingsPage.qml" line="144"/>
         <source>Select top menu items</source>
-        <translation type="unfinished"/>
+        <translation>Wybierz elementy górnego menu</translation>
     </message>
     <message id="events-view">
         <location filename="../qml/settings/UserSettingsPage.qml" line="151"/>
@@ -224,17 +224,17 @@
     <message id="notifications-para">
         <location filename="../qml/settings/UserSettingsPage.qml" line="193"/>
         <source>Notifications in kids mode cannot be clicked. Choose whether they are shown.</source>
-        <translation type="unfinished"/>
+        <translation>Powiadomień w trybie dzieci nie można kliknąć. Wybierz, czy mają być wyświetlane.</translation>
     </message>
     <message id="notifications-events">
         <location filename="../qml/settings/UserSettingsPage.qml" line="199"/>
         <source>Show notifications in events view </source>
-        <translation type="unfinished"/>
+        <translation>Pokaż powiadomienia na ekranie wydarzeń</translation>
     </message>
     <message id="notifications-popups">
         <location filename="../qml/settings/UserSettingsPage.qml" line="207"/>
         <source>Show notification pop ups</source>
-        <translation type="unfinished"/>
+        <translation>Pokaż wyskakujące powiadomienia</translation>
     </message>
 </context>
 </TS>

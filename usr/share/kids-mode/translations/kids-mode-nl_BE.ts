@@ -132,7 +132,7 @@
         <location filename="../qml/settings/MainSettingsPage.qml" line="170"/>
         <source>Select the favorite ambiences for the main user.</source>
         <oldsource>Select the favorite ambiences for the main user and those that will be available in kids mode.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Selecteert de favoriete sferen voor den hoofdgebruiker.</translation>
     </message>
     <message id="main-ambiences">
         <location filename="../qml/settings/MainSettingsPage.qml" line="177"/>
@@ -194,17 +194,17 @@
     <message id="top-menu">
         <location filename="../qml/settings/UserSettingsPage.qml" line="121"/>
         <source>Top menu</source>
-        <translation type="unfinished"/>
+        <translation>Topmenu</translation>
     </message>
     <message id="top-para">
         <location filename="../qml/settings/UserSettingsPage.qml" line="137"/>
         <source>Select the items that will be available in the top menu for  kids mode.</source>
-        <translation type="unfinished"/>
+        <translation>Selecteert de items die dat in het topmenu in de kindermodus beschikbaar gaan zijn.</translation>
     </message>
     <message id="select-topmenu">
         <location filename="../qml/settings/UserSettingsPage.qml" line="144"/>
         <source>Select top menu items</source>
-        <translation type="unfinished"/>
+        <translation>Topmenu-items selecteren</translation>
     </message>
     <message id="events-view">
         <location filename="../qml/settings/UserSettingsPage.qml" line="151"/>

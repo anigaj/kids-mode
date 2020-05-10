@@ -1,6 +1,6 @@
 Name:          kids-mode
 Version:       0.4
-Release:       1
+Release:       3
 Summary:   Allows only selected applications to be made available to a user in launcher.
 Group:         System/Patches
 Vendor:        Anant Gajjar
@@ -92,6 +92,10 @@ fi
 
 %changelog
 *Mon Mar 14 2015 Builder <builder@...>
+0.4-3
+- Updated Dutch, Dutch (Belgium) and Polish translations
+0.4-2
+Updated Hungarian translation
 0.4-1
 - Compatible with Sailfish 3.0
 - Added settings for top menu options for a user
